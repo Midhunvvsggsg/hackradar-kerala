@@ -1,0 +1,61 @@
+name: Automated Hackathon Radar Refresh
+
+on:
+  schedule:
+    # Runs every 6 hours automatically (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows clicking "Run workflow" in GitHub Actions tab anytime
+  push:
+    branches:
+      - main
+    paths:
+      - 'data/manual.yaml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 'hackradar-pipeline'
+  cancel-in-progress: true
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.16.1
+
+      - name: Install Dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Run Core Tests
+        run: pnpm test
+
+      - name: Run Collectors & Scrapers
+        run: pnpm collect
+
+      - name: Commit & Push Updated Dataset
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/hackathons.json
+          if git diff --staged --quiet; then
+            echo "No new hackathon changes detected."
+          else
+            git commit -m "chore(data): automated hackathon radar refresh [skip ci]"
+            git push origin main
+            node scripts/notify-indexnow.mjs || true
+          fi
