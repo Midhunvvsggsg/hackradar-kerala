@@ -38,21 +38,21 @@
             <span class="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block"></span>
             <span class="w-2.5 h-2.5 rounded-full bg-coconut-500/80 inline-block"></span>
-            <span class="ml-2 text-neutral-400">bash &bull; run without installing</span>
+            <span class="ml-2 text-neutral-400">bash &bull; terminal client</span>
           </span>
-          <span class="text-[11px] text-coconut-400 font-semibold">Ready to run</span>
+          <span class="text-[11px] text-coconut-400 font-semibold">Active CLI</span>
         </div>
 
         <div class="flex items-center justify-between gap-3 font-mono text-xs sm:text-sm">
           <div class="flex items-center gap-2 overflow-x-auto py-1">
             <span class="text-coconut-400 font-bold select-none">$</span>
-            <code class="text-white font-medium select-all">npx hackradar</code>
+            <code class="text-white font-medium select-all">hackradar</code>
           </div>
 
           <button
             type="button"
             class="terminal-copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-coconut-600 hover:bg-coconut-500 text-white transition shadow-sm font-semibold flex-shrink-0"
-            data-cmd="npx hackradar"
+            data-cmd="hackradar"
             title="Copy command to clipboard"
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -66,7 +66,7 @@
         <button
           type="button"
           class="terminal-copy-btn flex items-center justify-between p-2.5 rounded-lg bg-radar-card border border-radar-border hover:border-coconut-500/60 transition group text-left"
-          data-cmd="npx hackradar --free"
+          data-cmd="hackradar --free"
           title="Click to copy"
         >
           <div class="truncate mr-2">
@@ -79,7 +79,7 @@
         <button
           type="button"
           class="terminal-copy-btn flex items-center justify-between p-2.5 rounded-lg bg-radar-card border border-radar-border hover:border-coconut-500/60 transition group text-left"
-          data-cmd="npx hackradar --city kochi"
+          data-cmd="hackradar --city kochi"
           title="Click to copy"
         >
           <div class="truncate mr-2">
@@ -92,7 +92,7 @@
         <button
           type="button"
           class="terminal-copy-btn flex items-center justify-between p-2.5 rounded-lg bg-radar-card border border-radar-border hover:border-coconut-500/60 transition group text-left"
-          data-cmd="npx hackradar --nearby"
+          data-cmd="hackradar --nearby"
           title="Click to copy"
         >
           <div class="truncate mr-2">
@@ -105,7 +105,7 @@
         <button
           type="button"
           class="terminal-copy-btn flex items-center justify-between p-2.5 rounded-lg bg-radar-card border border-radar-border hover:border-coconut-500/60 transition group text-left"
-          data-cmd="npx hackradar ics 1"
+          data-cmd="hackradar ics 1"
           title="Click to copy"
         >
           <div class="truncate mr-2">
@@ -114,6 +114,12 @@
           </div>
           <span class="text-[10px] text-neutral-400 group-hover:text-coconut-300">Calendar .ics &rarr;</span>
         </button>
+      </div>
+
+      <!-- Quick execution modes hint -->
+      <div class="flex items-center justify-between text-[11px] font-mono text-neutral-400 px-1 pt-1">
+        <span>Workspace: <code class="text-coconut-300">pnpm cli</code></span>
+        <span>Global CLI: <code class="text-kasavu-300">hackradar</code></span>
       </div>
     </div>
   </div>

@@ -65,6 +65,77 @@ sortedEvents.forEach((e) => {
   });
 });
 const themes = Array.from(allThemesSet).slice(0, 16);
+
+// Build rich Schema.org JSON-LD data for Google, Brave, and Bing
+const siteUrl = "https://hackradar-kerala.vercel.app";
+const jsonLdData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": `${siteUrl}/`,
+      "name": "HackRadar Kerala",
+      "alternateName": ["HackRadar", "HackRadar KL"],
+      "description": "Real-time radar for active, verified hackathons in Kerala, India and online. Never miss a deadline with live Asia/Kolkata countdowns.",
+      "inLanguage": "en-IN"
+    },
+    {
+      "@type": "ItemList",
+      "@id": `${siteUrl}/#hackathons-list`,
+      "name": "Active Hackathons in Kerala & India",
+      "description": "Curated list of verified open hackathons currently accepting registrations.",
+      "itemListElement": sortedEvents.map((evt, idx) => ({
+        "@type": "ListItem",
+        "position": idx + 1,
+        "item": {
+          "@type": "Event",
+          "name": evt.title,
+          "description": `${evt.title} organized by ${evt.organizer}. Active hackathon in ${evt.city || "Kerala"}. Mode: ${evt.mode.toUpperCase()}. Fee: ${evt.fee.type.toUpperCase()}${evt.fee.amountINR ? ` ₹${evt.fee.amountINR}` : ""}.`,
+          "url": evt.url,
+          "startDate": evt.startDate || evt.registrationDeadline || new Date().toISOString(),
+          "endDate": evt.endDate || evt.registrationDeadline || new Date().toISOString(),
+          "eventAttendanceMode":
+            evt.mode === "online"
+              ? "https://schema.org/OnlineEventAttendanceMode"
+              : evt.mode === "hybrid"
+              ? "https://schema.org/MixedEventAttendanceMode"
+              : "https://schema.org/OfflineEventAttendanceMode",
+          "eventStatus": "https://schema.org/EventScheduled",
+          "isAccessibleForFree": evt.fee.type === "free",
+          "location":
+            evt.mode === "online"
+              ? {
+                  "@type": "VirtualLocation",
+                  "url": evt.url
+                }
+              : {
+                  "@type": "Place",
+                  "name": evt.city ? `${evt.city}, Kerala` : "Kerala, India",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": evt.city || "Kerala",
+                    "addressRegion": "Kerala",
+                    "addressCountry": "IN"
+                  }
+                },
+          "organizer": {
+            "@type": "Organization",
+            "name": evt.organizer,
+            "url": evt.url
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": evt.fee.type === "free" ? 0 : evt.fee.amountINR || 0,
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "url": evt.url
+          }
+        }
+      }))
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -73,16 +144,36 @@ const themes = Array.from(allThemesSet).slice(0, 16);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HackRadar Kerala — Active Hackathons in Kerala & India</title>
-    <meta name="description" content="Discover hackathons currently open for registration in Kerala, India and online. Never miss a deadline with live countdowns and calendar exports." />
+    <meta name="description" content="Discover hackathons open for registration in Kerala, India and online. Never miss a deadline with live Asia/Kolkata countdowns, transparent fee badges, calendar exports, and CLI." />
+    <meta name="keywords" content="hackradar, hackradar kerala, hackathons in kerala, kerala hackathons 2026, hackathons kochi, hackathons trivandrum, tech fests kerala, tinkerhub hackathons, gdg kochi, gdg trivandrum, beachhack, NIT Calicut tathva hackathon, kerala engineering hackathons" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="author" content="HackRadar Kerala" />
+    <meta name="theme-color" content="#0e1715" />
+    <link rel="canonical" href="https://hackradar-kerala.vercel.app/" />
+
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>" />
     <link rel="alternate" type="application/rss+xml" title="HackRadar Kerala RSS Feed" href="/feed.xml" />
     
     <!-- Open Graph Metadata -->
-    <meta property="og:title" content="HackRadar Kerala — Active Hackathons" />
-    <meta property="og:description" content="Hackathons you can still join. Free and paid, online and near you in Kerala, India." />
+    <meta property="og:title" content="HackRadar Kerala — Active Hackathons in Kerala & India" />
+    <meta property="og:description" content="A static-first radar for active hackathons in Kerala, India and online. Zero expired listings, transparent fees, live countdowns, and instant calendar alerts." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://hackradar-kerala.org" />
+    <meta property="og:url" content="https://hackradar-kerala.vercel.app/" />
+    <meta property="og:site_name" content="HackRadar Kerala" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:image" content="https://hackradar-kerala.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="HackRadar Kerala — Active Hackathons in Kerala" />
+
+    <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HackRadar Kerala — Active Hackathons in Kerala & India" />
+    <meta name="twitter:description" content="Never miss a hackathon registration deadline. Active events in Kerala with live countdowns & calendar exports." />
+    <meta name="twitter:image" content="https://hackradar-kerala.vercel.app/og-image.png" />
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdData)} />
   </head>
   <body class="min-h-screen bg-radar-bg text-neutral-100 flex flex-col font-sans transition-colors duration-200">
     <!-- Slim Top Navigation Header -->
@@ -935,6 +1026,28 @@ const themes = Array.from(allThemesSet).slice(0, 16);
           showToast("Event link copied to clipboard!");
         });
       });
+
+      // 4b. Hero Share Radar Button (WhatsApp / Web Share)
+      const heroShareBtn = document.getElementById("heroShareBtn");
+      if (heroShareBtn) {
+        heroShareBtn.addEventListener("click", async () => {
+          const shareData = {
+            title: "HackRadar Kerala — Active Hackathons",
+            text: "📡 Discover active hackathons in Kerala with live registration countdowns & calendar alerts on HackRadar Kerala!",
+            url: "https://hackradar-kerala.vercel.app/",
+          };
+          if (navigator.share) {
+            try {
+              await navigator.share(shareData);
+              return;
+            } catch {
+              // Fallback
+            }
+          }
+          const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareData.text + " " + shareData.url)}`;
+          window.open(waUrl, "_blank");
+        });
+      }
 
       // 5. Terminal CLI Command Copy Handlers
       function copyTerminalCmd(cmd: string, btn?: HTMLElement | null) {
