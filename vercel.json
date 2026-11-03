@@ -3,6 +3,5 @@
   "framework": "astro",
   "buildCommand": "pnpm --filter @hackradar/core build && pnpm --filter web build",
   "outputDirectory": "apps/web/dist",
-  "installCommand": "pnpm install",
-  "cleanUrls": true
+  "installCommand": "pnpm install"
 }
