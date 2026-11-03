@@ -1,0 +1,18 @@
+{
+  "data": {
+    "data": [
+      {
+        "id": 88801,
+        "title": "National Code Sprint",
+        "public_url": "hackathons/national-code-sprint-88801",
+        "isPaid": 0,
+        "end_date": "2026-11-25T23:59:59.000Z",
+        "organisation": { "name": "IIT Bombay" },
+        "subtype": "online_coding_challenge",
+        "locations": [],
+        "tags": [{ "name": "Algorithms" }],
+        "prizes": [{ "cash": 50000 }]
+      }
+    ]
+  }
+}

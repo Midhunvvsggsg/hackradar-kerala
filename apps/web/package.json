@@ -1,0 +1,20 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@hackradar/core": "workspace:*",
+    "astro": "^5.4.1",
+    "tailwindcss": "^3.4.17",
+    "@astrojs/tailwind": "^5.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9"
+  }
+}

@@ -1,0 +1,120 @@
+---
+// TerminalSection.astro — Interactive Terminal CLI Showcase with One-Click Copy
+---
+
+<section class="mt-14 mb-8 rounded-2xl border border-radar-border bg-gradient-to-br from-[#0c1412] via-[#090d0c] to-[#070b0a] p-6 sm:p-8 relative overflow-hidden" aria-label="Terminal CLI Radar">
+  <!-- Subtle decorative glowing accent -->
+  <div class="absolute -top-24 -right-24 w-60 h-60 bg-coconut-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+    <!-- Left: Explanation & Value Proposition -->
+    <div class="space-y-3 max-w-lg">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-coconut-500/10 text-coconut-400 border border-coconut-500/20">
+        <span class="w-2 h-2 rounded-full bg-coconut-400 animate-pulse"></span>
+        <span>FAST TERMINAL CLIENT</span>
+      </div>
+
+      <h2 class="text-xl sm:text-2xl font-bold font-display text-white text-adaptive-title tracking-tight flex items-center gap-2">
+        <span>Run in your Terminal</span>
+      </h2>
+
+      <p class="text-sm text-neutral-300 text-adaptive-muted leading-relaxed">
+        Prefer staying inside your terminal? Discover hackathons, view closing countdowns, open registration links, and export <code class="text-coconut-300 font-mono text-xs">.ics</code> calendar files without opening a browser.
+      </p>
+
+      <div class="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-neutral-400">
+        <span class="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800">⚡ Instant local cache</span>
+        <span class="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800">🛡️ Auto-drops ended events</span>
+        <span class="px-2 py-0.5 rounded bg-neutral-900 border border-neutral-800">📅 Calendar export</span>
+      </div>
+    </div>
+
+    <!-- Right: Copy-Paste Terminal Command Box -->
+    <div class="w-full lg:max-w-xl space-y-3">
+      <!-- Main Quick Launch Command Box -->
+      <div class="rounded-xl border border-coconut-500/40 bg-neutral-950 p-4 shadow-xl">
+        <div class="flex items-center justify-between pb-2 mb-2 border-b border-neutral-800/80 text-xs font-mono text-neutral-400">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-coconut-500/80 inline-block"></span>
+            <span class="ml-2 text-neutral-400">bash &bull; run without installing</span>
+          </span>
+          <span class="text-[11px] text-coconut-400 font-semibold">Ready to run</span>
+        </div>
+
+        <div class="flex items-center justify-between gap-3 font-mono text-xs sm:text-sm">
+          <div class="flex items-center gap-2 overflow-x-auto py-1">
+            <span class="text-coconut-400 font-bold select-none">$</span>
+            <code class="text-white font-medium select-all">npx hackradar</code>
+          </div>
+
+          <button
+            type="button"
+            class="terminal-copy-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-coconut-600 hover:bg-coconut-500 text-white transition shadow-sm font-semibold flex-shrink-0"
+            data-cmd="npx hackradar"
+            title="Copy command to clipboard"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span class="btn-label">Copy code</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Command Grid (Common Flags with 1-Click Copy) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+        <button
+          type="button"
+          class="terminal-copy-btn flex items-center justify-between p-2.5 rounded-lg bg-radar-card border border-radar-border hover:border-coconut-500/60 transition group text-left"
+          data-cmd="npx hackradar --free"
+          title="Click to copy"
+        >
+          <div class="truncate mr-2">
+            <span class="text-coconut-400">$</span>
+            <span class="text-neutral-200 group-hover:text-white">hackradar --free</span>
+          </div>
+          <span class="text-[10px] text-neutral-400 group-hover:text-coconut-300">Free only &rarr;</span>
+        </button>
+
+        <button
+          type="button"
+          class="terminal-copy-btn flex items-center justify-between p-2.5 rounded-lg bg-radar-card border border-radar-border hover:border-coconut-500/60 transition group text-left"
+          data-cmd="npx hackradar --city kochi"
+          title="Click to copy"
+        >
+          <div class="truncate mr-2">
+            <span class="text-coconut-400">$</span>
+            <span class="text-neutral-200 group-hover:text-white">hackradar --city kochi</span>
+          </div>
+          <span class="text-[10px] text-neutral-400 group-hover:text-coconut-300">By city &rarr;</span>
+        </button>
+
+        <button
+          type="button"
+          class="terminal-copy-btn flex items-center justify-between p-2.5 rounded-lg bg-radar-card border border-radar-border hover:border-coconut-500/60 transition group text-left"
+          data-cmd="npx hackradar --nearby"
+          title="Click to copy"
+        >
+          <div class="truncate mr-2">
+            <span class="text-coconut-400">$</span>
+            <span class="text-neutral-200 group-hover:text-white">hackradar --nearby</span>
+          </div>
+          <span class="text-[10px] text-neutral-400 group-hover:text-coconut-300">+Nearby &rarr;</span>
+        </button>
+
+        <button
+          type="button"
+          class="terminal-copy-btn flex items-center justify-between p-2.5 rounded-lg bg-radar-card border border-radar-border hover:border-coconut-500/60 transition group text-left"
+          data-cmd="npx hackradar ics 1"
+          title="Click to copy"
+        >
+          <div class="truncate mr-2">
+            <span class="text-coconut-400">$</span>
+            <span class="text-neutral-200 group-hover:text-white">hackradar ics 1</span>
+          </div>
+          <span class="text-[10px] text-neutral-400 group-hover:text-coconut-300">Calendar .ics &rarr;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

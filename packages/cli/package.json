@@ -1,0 +1,26 @@
+{
+  "name": "hackradar",
+  "version": "1.0.0",
+  "description": "Terminal radar for hackathons open to Kerala developers",
+  "type": "module",
+  "bin": {
+    "hackradar": "./bin/hackradar.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm",
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@hackradar/core": "workspace:*",
+    "cli-table3": "^0.6.5",
+    "commander": "^12.1.0",
+    "open": "^10.1.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  }
+}

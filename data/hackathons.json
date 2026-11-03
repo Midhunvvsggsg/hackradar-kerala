@@ -1,0 +1,308 @@
+{
+  "generatedAt": "2026-11-03T06:27:13.104Z",
+  "timezone": "Asia/Kolkata",
+  "totalEvents": 8,
+  "sources": [
+    {
+      "id": "manual",
+      "name": "Curated Community (manual.yaml)",
+      "status": "ok",
+      "count": 7,
+      "lastRun": "2026-11-03T06:27:13.104Z"
+    },
+    {
+      "id": "devfolio",
+      "name": "Devfolio API",
+      "status": "ok",
+      "count": 3,
+      "lastRun": "2026-11-03T06:27:13.104Z"
+    },
+    {
+      "id": "devpost",
+      "name": "Devpost API",
+      "status": "ok",
+      "count": 9,
+      "lastRun": "2026-11-03T06:27:13.104Z"
+    },
+    {
+      "id": "unstop",
+      "name": "Unstop API",
+      "status": "ok",
+      "count": 1,
+      "lastRun": "2026-11-03T06:27:13.104Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "manual-gdg-trivandrum-sprint",
+      "title": "Trivandrum Cloud Sprint",
+      "source": "manual",
+      "sources": [
+        {
+          "name": "manual",
+          "url": "https://gdg.community.dev/gdg-thiruvananthapuram/"
+        }
+      ],
+      "url": "https://gdg.community.dev/gdg-thiruvananthapuram/",
+      "organizer": "GDG Trivandrum",
+      "mode": "offline",
+      "city": "Thiruvananthapuram",
+      "state": "Kerala",
+      "country": "India",
+      "registrationDeadline": "2026-11-05T20:00:00+05:30",
+      "startDate": "2026-11-09T09:30:00+05:30",
+      "endDate": "2026-11-09T18:00:00+05:30",
+      "fee": {
+        "type": "free"
+      },
+      "prize": "Swag & Google Cloud Credits",
+      "themes": [
+        "Google Cloud",
+        "Android",
+        "Flutter"
+      ],
+      "eligibility": "Open to all developers",
+      "teamSize": "1-3 members",
+      "lastSeenAt": "2026-11-03T06:27:13.113Z",
+      "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "devfolio-0dab52b6085941a6b366b2425310d8b8",
+      "title": "THE BIG HACK 2.0",
+      "source": "devfolio",
+      "sources": [
+        {
+          "name": "devfolio",
+          "url": "https://the-big-hack-2.devfolio.co"
+        }
+      ],
+      "url": "https://the-big-hack-2.devfolio.co",
+      "organizer": "the-big-hack-2",
+      "mode": "offline",
+      "city": "Soladevanahalli",
+      "state": "Karnataka",
+      "country": "India",
+      "registrationDeadline": "2026-11-10T11:00:00.000Z",
+      "startDate": "2026-11-20T03:30:00.000Z",
+      "endDate": "2026-11-20T19:15:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "themes": [
+        "No Restrictions"
+      ],
+      "imageUrl": "https://assets.devfolio.co/hackathons/0dab52b6085941a6b366b2425310d8b8/assets/cover/968.jpeg",
+      "lastSeenAt": "2026-11-03T06:27:14.324Z",
+      "isNearby": true,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "manual-haxfinity-2026",
+      "title": "Haxfinity",
+      "source": "manual",
+      "sources": [
+        {
+          "name": "manual",
+          "url": "https://haxfinity.devfolio.co"
+        }
+      ],
+      "url": "https://haxfinity.devfolio.co",
+      "organizer": "Amal College of Advanced Studies, Nilambur",
+      "mode": "offline",
+      "city": "Myladi",
+      "state": "Kerala",
+      "country": "India",
+      "registrationDeadline": "2026-11-10T23:59:00+05:30",
+      "startDate": "2026-12-12T10:30:00+05:30",
+      "endDate": "2026-12-13T10:30:00+05:30",
+      "fee": {
+        "type": "free"
+      },
+      "prize": "₹50,000",
+      "themes": [
+        "FinTech",
+        "AI",
+        "HealthTech"
+      ],
+      "eligibility": "Open to all college students",
+      "teamSize": "2-4 members",
+      "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/953.png",
+      "lastSeenAt": "2026-11-03T06:27:13.113Z",
+      "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "manual-tinkerhack-2026",
+      "title": "TinkerHack 2026",
+      "source": "manual",
+      "sources": [
+        {
+          "name": "manual",
+          "url": "https://tinkerhub.org/events"
+        }
+      ],
+      "url": "https://tinkerhub.org/events",
+      "organizer": "TinkerHub Foundation",
+      "mode": "hybrid",
+      "city": "Kochi",
+      "state": "Kerala",
+      "country": "India",
+      "registrationDeadline": "2026-11-12T23:59:59+05:30",
+      "startDate": "2026-11-20T09:00:00+05:30",
+      "endDate": "2026-11-21T18:00:00+05:30",
+      "fee": {
+        "type": "free"
+      },
+      "prize": "₹1,50,000",
+      "themes": [
+        "Open Source",
+        "Generative AI",
+        "Web3"
+      ],
+      "eligibility": "Open to all students and early developers",
+      "teamSize": "2-4 members",
+      "lastSeenAt": "2026-11-03T06:27:13.113Z",
+      "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "manual-devfest-kochi",
+      "title": "DevFest Kochi Hackathon 2026",
+      "source": "manual",
+      "sources": [
+        {
+          "name": "manual",
+          "url": "https://gdg.community.dev/gdg-cochin/"
+        }
+      ],
+      "url": "https://gdg.community.dev/gdg-cochin/",
+      "organizer": "GDG Kochi & KSUM",
+      "mode": "hybrid",
+      "city": "Kochi",
+      "state": "Kerala",
+      "country": "India",
+      "registrationDeadline": "2026-11-16T23:59:59+05:30",
+      "startDate": "2026-11-23T09:00:00+05:30",
+      "endDate": "2026-11-24T18:00:00+05:30",
+      "fee": {
+        "type": "free"
+      },
+      "prize": "₹1,50,000",
+      "themes": [
+        "Android",
+        "GenAI",
+        "Firebase"
+      ],
+      "eligibility": "Open to all developers and students in Kerala",
+      "teamSize": "2-4 members",
+      "lastSeenAt": "2026-11-03T06:27:13.113Z",
+      "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "manual-ksum-innovation-challenge",
+      "title": "KSUM Innovation Hackathon",
+      "source": "manual",
+      "sources": [
+        {
+          "name": "manual",
+          "url": "https://startupmission.kerala.gov.in/"
+        }
+      ],
+      "url": "https://startupmission.kerala.gov.in/",
+      "organizer": "Kerala Startup Mission",
+      "mode": "hybrid",
+      "city": "Kochi",
+      "state": "Kerala",
+      "country": "India",
+      "registrationDeadline": "2026-11-17T18:00:00+05:30",
+      "startDate": "2026-11-25T10:00:00+05:30",
+      "endDate": "2026-11-26T18:00:00+05:30",
+      "fee": {
+        "type": "free"
+      },
+      "prize": "₹5,00,000 Grant",
+      "themes": [
+        "GovTech",
+        "Tourism Tech",
+        "AI Solutions"
+      ],
+      "eligibility": "Kerala-based startups, students, and professionals",
+      "teamSize": "2-5 members",
+      "lastSeenAt": "2026-11-03T06:27:13.113Z",
+      "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "manual-tathva-hack-nitc",
+      "title": "Tathva Hackathon 2026",
+      "source": "manual",
+      "sources": [
+        {
+          "name": "manual",
+          "url": "https://tathva.org"
+        }
+      ],
+      "url": "https://tathva.org",
+      "organizer": "National Institute of Technology Calicut (NITC)",
+      "mode": "offline",
+      "city": "Kozhikode",
+      "state": "Kerala",
+      "country": "India",
+      "registrationDeadline": "2026-11-19T20:00:00+05:30",
+      "startDate": "2026-11-27T09:00:00+05:30",
+      "endDate": "2026-11-28T18:00:00+05:30",
+      "fee": {
+        "type": "paid",
+        "amountINR": 299
+      },
+      "prize": "₹2,00,000",
+      "themes": [
+        "DeepTech",
+        "Systems Engineering",
+        "AI / ML"
+      ],
+      "eligibility": "Engineering students across India",
+      "teamSize": "2-4 members",
+      "lastSeenAt": "2026-11-03T06:27:13.113Z",
+      "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "manual-beachhack-2026",
+      "title": "BeachHack Season 8",
+      "source": "manual",
+      "sources": [
+        {
+          "name": "manual",
+          "url": "https://beachhack.in"
+        }
+      ],
+      "url": "https://beachhack.in",
+      "organizer": "Christ College of Engineering",
+      "mode": "offline",
+      "city": "Thrissur",
+      "state": "Kerala",
+      "country": "India",
+      "registrationDeadline": "2027-01-25T23:59:59+05:30",
+      "startDate": "2027-02-05T09:00:00+05:30",
+      "endDate": "2027-02-07T18:00:00+05:30",
+      "fee": {
+        "type": "paid",
+        "amountINR": 350
+      },
+      "prize": "₹2,50,000",
+      "themes": [
+        "Coastal Ecology & Marine Tech",
+        "Disaster Management",
+        "EdTech"
+      ],
+      "eligibility": "Pan-India undergraduate students",
+      "teamSize": "3-5 members",
+      "lastSeenAt": "2026-11-03T06:27:13.113Z",
+      "isNearby": false,
+      "deadlineUnknown": false
+    }
+  ]
+}

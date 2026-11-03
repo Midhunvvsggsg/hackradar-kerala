@@ -1,0 +1,108 @@
+---
+import { SourceHealth, formatKolkataDate } from "@hackradar/core";
+
+interface Props {
+  generatedAt: string;
+  sources: SourceHealth[];
+}
+
+const { generatedAt, sources } = Astro.props;
+const formattedTime = formatKolkataDate(generatedAt, true);
+---
+
+<footer class="mt-20 border-t border-radar-border bg-radar-bg bg-radar-footer py-12 text-neutral-300 text-adaptive-muted text-xs transition-colors">
+  <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Col 1: About & Identity -->
+      <div class="space-y-3 md:col-span-2">
+        <h2 class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-coconut-400"></span>
+          <span class="font-bold tracking-wider text-sm font-display text-white text-adaptive-title">HACKRADAR KERALA</span>
+        </h2>
+        <p class="text-neutral-300 text-adaptive-muted leading-relaxed max-w-md">
+          Static-first open source hackathon radar dedicated to students, engineers, and makers across Kerala, India. Runs every 6 hours via automated CI workflows.
+        </p>
+        <p class="font-mono text-[11px] text-neutral-400 text-adaptive-muted">
+          Last dataset update: <span class="text-neutral-200 text-adaptive-title font-semibold">{formattedTime} (IST)</span>
+        </p>
+      </div>
+
+      <!-- Col 2: Source Health Dots with Tooltips -->
+      <div class="space-y-3">
+        <h3 class="font-mono font-semibold text-neutral-200 text-adaptive-title uppercase tracking-wider text-[11px]">Sources</h3>
+        <ul class="space-y-2.5">
+          {sources.map((src) => {
+            const isOk = src.status === "ok";
+            const cleanName = src.name.split("(")[0].trim();
+            const tooltip = `${cleanName}: ${src.count} events active (${isOk ? "Operational" : src.error || "Degraded"})`;
+            return (
+              <li class="flex items-center justify-between text-xs font-mono group" title={tooltip}>
+                <span class="text-neutral-300 text-adaptive-muted group-hover:text-neutral-200 transition">{cleanName}</span>
+                <span class="inline-flex items-center gap-1.5 cursor-help">
+                  <span class={`w-2 h-2 rounded-full ${isOk ? "bg-coconut-400 shadow-[0_0_6px_#10b981]" : "bg-red-400"}`}></span>
+                  <span class="text-[10px] text-neutral-400 text-adaptive-muted group-hover:text-neutral-200 transition">{src.count}</span>
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <!-- Col 3: Feeds & Contribute -->
+      <div class="space-y-3">
+        <h3 class="font-mono font-semibold text-neutral-200 text-adaptive-title uppercase tracking-wider text-[11px]">Feeds & Contribute</h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="/feed.xml" class="hover:text-coconut-400 transition flex items-center gap-2" title="RSS 2.0 Feed">
+              <svg class="w-4 h-4 text-kasavu-400 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 11a9 9 0 0 1 9 9"></path>
+                <path d="M4 4a16 16 0 0 1 16 16"></path>
+                <circle cx="5" cy="19" r="1"></circle>
+              </svg>
+              <span>RSS Feed (/feed.xml)</span>
+            </a>
+          </li>
+          <li>
+            <a href="/api/hackathons.json" class="hover:text-coconut-400 transition flex items-center gap-2" title="REST API JSON">
+              <svg class="w-4 h-4 text-backwater-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+              <span>REST JSON API</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/Midhunvvsggsg/hackradar-kerala/tree/main/data/manual.yaml" target="_blank" rel="noopener noreferrer" class="hover:text-coconut-400 transition flex items-center gap-2 text-kasavu-300 font-medium">
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+              <span>Submit Event via PR</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Kasavu Decorative Divider -->
+    <div class="kasavu-divider"></div>
+
+    <!-- Bottom Attribution & Terminal Info -->
+    <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-400 text-adaptive-muted font-mono">
+      <div>
+        Made with 🌴 in Kerala &bull; MIT License &bull; Free & Open Source
+      </div>
+      <div class="flex items-center gap-3">
+        <span>CLI: <code class="text-neutral-300 text-adaptive-title bg-radar-card px-1.5 py-0.5 rounded border border-radar-border">npx hackradar</code></span>
+        <button id="footerCopyBtn" class="text-neutral-400 hover:text-white transition p-1 min-w-[32px] min-h-[32px] flex items-center justify-center rounded" title="Copy CLI command" aria-label="Copy npx hackradar CLI command">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const footerCopyBtn = document.getElementById("footerCopyBtn");
+  if (footerCopyBtn) {
+    footerCopyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText("npx hackradar");
+      footerCopyBtn.classList.add("text-coconut-400");
+      setTimeout(() => footerCopyBtn.classList.remove("text-coconut-400"), 1500);
+    });
+  }
+</script>

@@ -1,0 +1,280 @@
+---
+import { Hackathon, getDeadlineInfo, formatKolkataDate } from "@hackradar/core";
+
+interface Props {
+  hackathon: Hackathon;
+}
+
+const { hackathon } = Astro.props;
+const now = new Date();
+const deadlineInfo = getDeadlineInfo(hackathon, now);
+
+const deadlineMs = hackathon.registrationDeadline
+  ? new Date(hackathon.registrationDeadline).getTime()
+  : 0;
+
+const endMs = hackathon.endDate
+  ? new Date(hackathon.endDate).getTime()
+  : 0;
+
+const startMs = hackathon.startDate
+  ? new Date(hackathon.startDate).getTime()
+  : 0;
+
+const addedMs = new Date(hackathon.lastSeenAt).getTime();
+
+// Parse approximate numeric prize value for sorting
+let prizeNumeric = 0;
+if (hackathon.prize) {
+  const match = hackathon.prize.replace(/,/g, "").match(/\d+/);
+  if (match) {
+    prizeNumeric = parseInt(match[0], 10);
+    if (hackathon.prize.includes("$")) {
+      prizeNumeric *= 85;
+    }
+  }
+}
+
+const locationDisplay = hackathon.mode === "online"
+  ? "Virtual / Online"
+  : [hackathon.city, hackathon.state || "Kerala"].filter(Boolean).join(", ");
+
+// Urgency calculation: under 72h (< 3 days)
+const diffMs = deadlineMs ? deadlineMs - now.getTime() : 0;
+const isUnder72h = diffMs > 0 && diffMs < 3 * 24 * 60 * 60 * 1000;
+const isBetween3And7d = diffMs >= 3 * 24 * 60 * 60 * 1000 && diffMs <= 7 * 24 * 60 * 60 * 1000;
+const isOver7d = diffMs > 7 * 24 * 60 * 60 * 1000;
+
+// Progress bar percentage (capped between 5% and 100%)
+// Assume a standard 14-day registration window reference
+const maxWindowMs = 14 * 24 * 60 * 60 * 1000;
+const progressPercent = deadlineMs > 0
+  ? Math.min(100, Math.max(8, Math.round((diffMs / maxWindowMs) * 100)))
+  : 100;
+
+const exactDeadlineString = hackathon.registrationDeadline
+  ? formatKolkataDate(hackathon.registrationDeadline, true)
+  : "Unknown registration deadline";
+
+const formattedDates = hackathon.startDate
+  ? `${formatKolkataDate(hackathon.startDate)}${hackathon.endDate ? ` – ${formatKolkataDate(hackathon.endDate)}` : ""}`
+  : null;
+
+const visibleThemes = (hackathon.themes || []).slice(0, 3);
+const remainingThemesCount = (hackathon.themes || []).length - visibleThemes.length;
+---
+
+<article
+  class="hackathon-card group relative flex flex-col justify-between rounded-2xl border border-radar-border bg-radar-card p-5 transition-all duration-200 hover:-translate-y-1 hover:border-coconut-500/50 hover:shadow-xl hover:shadow-coconut-950/20 focus-within:ring-2 focus-within:ring-coconut-400"
+  data-id={hackathon.id}
+  data-title={hackathon.title.toLowerCase()}
+  data-organizer={hackathon.organizer.toLowerCase()}
+  data-city={(hackathon.city || "").toLowerCase()}
+  data-mode={hackathon.mode}
+  data-fee={hackathon.fee.type}
+  data-nearby={hackathon.isNearby ? "true" : "false"}
+  data-deadline-ms={deadlineMs}
+  data-end-ms={endMs}
+  data-start-ms={startMs}
+  data-added-ms={addedMs}
+  data-prize-numeric={prizeNumeric}
+  data-themes={(hackathon.themes || []).join(",").toLowerCase()}
+>
+  <!-- Closing Soon Ribbon (Under 72 Hours) -->
+  {isUnder72h && (
+    <div class="absolute -top-2.5 right-4 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-md flex items-center gap-1 animate-pulse motion-reduce:animate-none z-10">
+      <span>⚡ CLOSING SOON</span>
+    </div>
+  )}
+
+  <div class="space-y-3">
+    <!-- 1. Top Row: Mode & City (Left) | Fee Badge (Right) -->
+    <div class="flex items-center justify-between gap-2">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <!-- Mode Badge -->
+        <span class={`px-2 py-0.5 rounded text-[11px] font-mono font-semibold tracking-wide uppercase ${
+          hackathon.mode === "offline"
+            ? "bg-purple-950/60 text-purple-300 border border-purple-800/40"
+            : hackathon.mode === "hybrid"
+            ? "bg-blue-950/60 text-blue-300 border border-blue-800/40"
+            : "bg-neutral-800 text-neutral-300 border border-neutral-700/50"
+        }`}>
+          {hackathon.mode}
+        </span>
+
+        <!-- City Location Badge -->
+        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium bg-radar-surface text-neutral-300 border border-radar-border">
+          <svg class="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          <span class="truncate max-w-[130px]">{locationDisplay}</span>
+          {hackathon.isNearby && <span class="text-kasavu-400 font-mono text-[10px] ml-0.5">[Nearby]</span>}
+        </span>
+      </div>
+
+      <!-- Fee Badge -->
+      {hackathon.fee.type === "free" ? (
+        <span class="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-coconut-500/15 text-coconut-400 border border-coconut-500/30">
+          FREE
+        </span>
+      ) : hackathon.fee.type === "paid" ? (
+        <span class="px-2.5 py-0.5 rounded text-xs font-mono font-bold bg-kasavu-500/15 text-kasavu-400 border border-kasavu-500/30">
+          PAID {hackathon.fee.amountINR ? `₹${hackathon.fee.amountINR}` : ""}
+        </span>
+      ) : (
+        <span class="px-2.5 py-0.5 rounded text-xs font-mono text-neutral-400 bg-neutral-800/60 border border-neutral-700/40">
+          Fee unknown
+        </span>
+      )}
+    </div>
+
+    <!-- 2. Title & Organizer -->
+    <div>
+      <h3 class="text-lg sm:text-[19px] font-semibold text-white text-adaptive-title group-hover:text-coconut-400 transition-colors line-clamp-2 leading-snug">
+        <a href={hackathon.url} target="_blank" rel="noopener noreferrer" class="focus:outline-none rounded">
+          {hackathon.title}
+        </a>
+      </h3>
+      <p class="text-xs text-neutral-300 text-adaptive-muted mt-1 flex items-center gap-1.5 truncate">
+        <span>by</span>
+        <span class="font-medium text-neutral-200 text-adaptive-title truncate">{hackathon.organizer}</span>
+      </p>
+    </div>
+
+    <!-- 3. Meta Rows (Event dates, Team Size, Eligibility) -->
+    <div class="space-y-1.5 text-xs text-neutral-300 text-adaptive-muted pt-1">
+      {formattedDates && (
+        <div class="flex items-center gap-2 text-neutral-300 text-adaptive-muted">
+          <svg class="w-3.5 h-3.5 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span class="truncate">{formattedDates}</span>
+        </div>
+      )}
+
+      {(hackathon.teamSize || hackathon.eligibility) && (
+        <div class="flex flex-wrap items-center gap-3 text-[11px] text-neutral-300 text-adaptive-muted">
+          {hackathon.teamSize && (
+            <span class="flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+              <span>{hackathon.teamSize}</span>
+            </span>
+          )}
+          {hackathon.eligibility && (
+            <span class="flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path></svg>
+              <span class="truncate max-w-[140px]">{hackathon.eligibility}</span>
+            </span>
+          )}
+        </div>
+      )}
+    </div>
+
+    <!-- 4. Soft Gold-tinted Prize Pill -->
+    {hackathon.prize && (
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-kasavu-500/10 text-kasavu-300 border border-kasavu-500/20">
+        <span>🏆</span>
+        <span>Prize: {hackathon.prize}</span>
+      </div>
+    )}
+
+    <!-- 5. Tags (min 12px font, AA contrast, max 3 +N) -->
+    <div class="flex flex-wrap items-center gap-1 min-h-[26px]">
+      {visibleThemes.map((theme) => (
+        <span class="px-2 py-0.5 rounded text-xs font-mono bg-neutral-800 text-neutral-300 border border-neutral-700/60">
+          #{theme}
+        </span>
+      ))}
+      {remainingThemesCount > 0 && (
+        <span class="px-2 py-0.5 rounded text-xs font-mono bg-neutral-900 text-neutral-400 border border-neutral-800" title={`${remainingThemesCount} more themes`}>
+          +{remainingThemesCount}
+        </span>
+      )}
+    </div>
+  </div>
+
+  <!-- 6. Pinned Bottom: Deadline Block & Action Buttons -->
+  <div class="pt-4 border-t border-radar-border/70 mt-5 space-y-3">
+    <!-- Deadline Block with Urgency States & Progress Bar -->
+    <div
+      class="group/tooltip relative space-y-1.5 cursor-help"
+      title={`Registration Deadline: ${exactDeadlineString}`}
+    >
+      <div class="flex items-center justify-between text-xs">
+        <span class="text-neutral-300 text-adaptive-muted text-[11px] uppercase font-mono tracking-wider">Deadline</span>
+        <div
+          class={`countdown-container font-mono text-xs font-semibold ${
+            isUnder72h
+              ? "text-red-400"
+              : isBetween3And7d
+              ? "text-kasavu-400"
+              : "text-backwater-400"
+          }`}
+          data-target-ms={deadlineMs}
+        >
+          {deadlineInfo.isUnknown ? (
+            <span class="text-neutral-300 text-adaptive-muted">Deadline unknown</span>
+          ) : (
+            <span class="countdown-text">
+              {isUnder72h && "⚡ "}
+              {deadlineInfo.badgeText}
+            </span>
+          )}
+        </div>
+      </div>
+
+      <!-- Thin progress bar of remaining time -->
+      {deadlineMs > 0 && (
+        <div class="w-full bg-neutral-800 h-1 rounded-full overflow-hidden">
+          <div
+            class={`h-full rounded-full transition-all duration-500 ${
+              isUnder72h
+                ? "bg-red-500"
+                : isBetween3And7d
+                ? "bg-kasavu-500"
+                : "bg-backwater-500"
+            }`}
+            style={`width: ${progressPercent}%`}
+          ></div>
+        </div>
+      )}
+    </div>
+
+    <!-- 7. Action Buttons (44x44px minimum tap target for icons) -->
+    <div class="flex items-center gap-2 pt-1">
+      <!-- Primary Register Now CTA -->
+      <a
+        href={hackathon.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex-1 min-h-[44px] flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold bg-backwater-700 hover:bg-backwater-600 text-white transition shadow-sm group-hover:bg-coconut-600 focus:outline-none focus:ring-2 focus:ring-coconut-400"
+        aria-label={`Register for ${hackathon.title}`}
+      >
+        <span>Register now</span>
+        {hackathon.source !== "manual" && (
+          <span class="text-[11px] font-normal text-white capitalize">via {hackathon.source}</span>
+        )}
+        <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+      </a>
+
+      <!-- Calendar (.ics) 44x44px Button -->
+      <button
+        type="button"
+        class="btn-ics min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-neutral-300 text-adaptive-muted hover:text-white bg-radar-surface hover:bg-neutral-800 border border-radar-border transition focus:outline-none focus:ring-2 focus:ring-coconut-500"
+        title="Add to Calendar (.ics)"
+        aria-label="Export iCalendar file (.ics)"
+        data-json={JSON.stringify(hackathon)}
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+      </button>
+
+      <!-- Share 44x44px Button -->
+      <button
+        type="button"
+        class="btn-share min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-neutral-300 text-adaptive-muted hover:text-white bg-radar-surface hover:bg-neutral-800 border border-radar-border transition focus:outline-none focus:ring-2 focus:ring-coconut-500"
+        title="Share event link"
+        aria-label="Share event link"
+        data-url={hackathon.url}
+        data-title={hackathon.title}
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+      </button>
+    </div>
+  </div>
+</article>

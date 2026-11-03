@@ -1,0 +1,75 @@
+---
+import { Hackathon, getDeadlineInfo, formatKolkataDate, isHackathonOpen } from "@hackradar/core";
+
+interface Props {
+  hackathons: Hackathon[];
+}
+
+const { hackathons } = Astro.props;
+const now = new Date();
+
+// Filter events closing within 72 hours and strictly open/upcoming
+const closingSoonEvents = hackathons
+  .filter((h) => {
+    if (!isHackathonOpen(h, now)) return false;
+    if (!h.registrationDeadline) return false;
+    const diff = new Date(h.registrationDeadline).getTime() - now.getTime();
+    return diff > 0 && diff <= 3 * 24 * 60 * 60 * 1000;
+  })
+  .slice(0, 3);
+---
+
+{closingSoonEvents.length > 0 && (
+  <section class="mb-8" aria-label="Closing Soon Hackathons">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+      <h2 class="text-sm font-mono font-bold uppercase tracking-wider text-red-400 flex items-center gap-2">
+        <span>Closing Soon &bull; Next 72 Hours</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {closingSoonEvents.map((h) => {
+        const info = getDeadlineInfo(h, now);
+        return (
+          <div class="relative overflow-hidden rounded-xl border border-red-500/30 bg-red-950/20 p-4 transition-all hover:border-red-500/60 hover:shadow-lg hover:shadow-red-950/30 flex flex-col justify-between">
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] font-mono">
+                <span class="px-2 py-0.5 rounded bg-red-900/50 text-red-200 border border-red-700/40 font-bold">
+                  ⚡ {info.badgeText}
+                </span>
+                <span class="text-neutral-300 text-adaptive-muted">{h.city || "Kerala"}</span>
+              </div>
+
+              <h3 class="font-bold text-sm text-white text-adaptive-title line-clamp-1 hover:text-red-300 transition">
+                <a href={h.url} target="_blank" rel="noopener noreferrer">
+                  {h.title}
+                </a>
+              </h3>
+              <p class="text-xs text-neutral-300 text-adaptive-muted line-clamp-1">by {h.organizer}</p>
+            </div>
+
+            <div class="pt-3 border-t border-red-900/30 mt-3 flex items-center justify-between">
+              <span class="text-xs font-mono font-semibold text-neutral-200 text-adaptive-muted">
+                {h.fee.type === "free" ? (
+                  <span class="text-coconut-400">FREE</span>
+                ) : (
+                  <span class="text-kasavu-400">PAID {h.fee.amountINR ? `₹${h.fee.amountINR}` : ""}</span>
+                )}
+              </span>
+
+              <a
+                href={h.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1 rounded text-xs font-semibold bg-red-600 hover:bg-red-500 text-white transition shadow-sm"
+              >
+                Register now &rarr;
+              </a>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}

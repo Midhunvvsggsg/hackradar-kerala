@@ -1,0 +1,16 @@
+{
+  "hackathons": [
+    {
+      "id": 99901,
+      "title": "Global AI Challenge 2026",
+      "displayed_location": {
+        "location": "Online"
+      },
+      "url": "https://global-ai.devpost.com/",
+      "submission_period_dates": "Oct 15 - Nov 20, 2026",
+      "themes": [{ "name": "AI" }],
+      "prize_amount": "$50,000",
+      "organization_name": "Global Tech"
+    }
+  ]
+}

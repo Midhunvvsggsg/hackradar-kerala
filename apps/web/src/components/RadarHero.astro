@@ -1,0 +1,190 @@
+---
+interface Props {
+  totalEvents: number;
+}
+const { totalEvents } = Astro.props;
+---
+
+<header class="relative overflow-hidden border-b border-radar-border bg-gradient-to-b from-[#0e1715] to-[#090d0c] bg-radar-hero py-10 sm:py-14 transition-colors">
+  <!-- Subtle Background Grid -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#111c19_1px,transparent_1px),linear-gradient(to_bottom,#111c19_1px,transparent_1px)] bg-[size:32px_32px] opacity-25 pointer-events-none"></div>
+
+  <div class="relative max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+    <!-- Left: User-Centric Hero Text -->
+    <div class="space-y-4 text-center md:text-left z-10 max-w-xl">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-coconut-500/10 text-coconut-400 border border-coconut-500/20 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-coconut-400 animate-pulse"></span>
+        <span class="tracking-wide">RADAR ACTIVE &bull; ASIA/KOLKATA TIME</span>
+      </div>
+
+      <div class="space-y-1">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white text-adaptive-title font-display">
+          <span>HACKRADAR</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-coconut-400 via-backwater-400 to-kasavu-400">KERALA</span>
+        </h1>
+        <p class="font-malayalam text-coconut-400/90 text-sm sm:text-base font-medium tracking-wide">
+          കേരളത്തിലെ ഹാക്കത്തോണുകൾ ഒരിടത്ത്
+        </p>
+      </div>
+
+      <p class="text-neutral-300 text-adaptive-muted text-base sm:text-lg leading-relaxed">
+        Hackathons you can still join. Free and paid, online and near you.
+      </p>
+
+      <!-- Action Buttons & CLI Chip -->
+      <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2">
+        <div id="cliCommandPill" class="flex items-center gap-2 bg-radar-card border border-radar-border hover:border-coconut-500/60 px-3 py-1.5 rounded-lg text-xs font-mono text-neutral-300 shadow-sm cursor-pointer transition select-all" title="Click to copy: npx hackradar">
+          <span class="text-coconut-400 font-bold select-none">$</span>
+          <span class="text-white font-medium select-all">npx hackradar</span>
+          <button id="copyCliBtn" type="button" class="text-neutral-400 hover:text-white transition ml-1 p-1 min-w-[28px] min-h-[28px] flex items-center justify-center rounded bg-neutral-800/80 hover:bg-neutral-700" title="Copy CLI command" aria-label="Copy npx hackradar CLI command">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span class="btn-label hidden">Copy</span>
+          </button>
+        </div>
+
+        <a href="#events" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold bg-backwater-600 hover:bg-backwater-500 text-white transition shadow-sm hover:shadow-backwater-600/30">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+          <span>Explore {totalEvents} Open Events</span>
+        </a>
+
+        <!-- List / Map View Toggle Button -->
+        <button
+          type="button"
+          id="toggleMapViewBtn"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-mono font-medium bg-radar-card border border-radar-border hover:border-coconut-500 text-neutral-200 transition"
+        >
+          <span>🗺️ Map View</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Enlarged Radar Hero Centrepiece with Kerala Outline & Interactive Pings (hidden on mobile, visible >= md) -->
+    <div class="hidden md:flex relative w-72 h-72 md:w-80 md:h-80 flex-shrink-0 items-center justify-center select-none">
+      <!-- Radar Rings -->
+      <div class="absolute inset-0 rounded-full border border-coconut-500/20 bg-coconut-950/20 shadow-[0_0_50px_rgba(16,185,129,0.08)]"></div>
+      <div class="absolute inset-8 rounded-full border border-coconut-500/15"></div>
+      <div class="absolute inset-16 rounded-full border border-coconut-500/10"></div>
+      <div class="absolute inset-24 rounded-full border border-coconut-500/5"></div>
+
+      <!-- Crosshairs -->
+      <div class="absolute inset-x-0 top-1/2 h-px bg-coconut-500/15"></div>
+      <div class="absolute inset-y-0 left-1/2 w-px bg-coconut-500/15"></div>
+
+      <!-- Simplified Kerala State Silhouette inside radar -->
+      <svg
+        viewBox="0 0 100 200"
+        class="absolute inset-0 w-full h-full p-10 opacity-30 pointer-events-none"
+        fill="none"
+        stroke="#10b981"
+        stroke-width="1.8"
+      >
+        <path d="M 28 15 C 35 20, 42 35, 40 50 C 45 55, 62 60, 62 70 C 62 80, 50 88, 46 95 C 56 102, 78 114, 80 125 C 80 136, 62 142, 58 152 C 58 162, 88 168, 86 182 C 84 196, 68 204, 66 215 C 76 222, 80 240, 78 255 C 68 250, 58 228, 56 215 C 46 200, 44 180, 46 160 C 44 140, 50 126, 48 110 C 38 95, 36 75, 38 60 C 28 45, 24 25, 28 15 Z" />
+      </svg>
+
+      <!-- Radar Beam Sweep -->
+      <div class="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+        <div class="w-full h-full radar-sweep-beam relative">
+          <div class="absolute top-0 right-0 w-1/2 h-1/2 bg-gradient-to-br from-coconut-400/25 via-coconut-500/10 to-transparent [clip-path:polygon(0_100%,100%_0,100%_100%)]"></div>
+          <div class="absolute top-0 right-1/2 w-px h-1/2 bg-coconut-300 shadow-[0_0_10px_#34d399]"></div>
+        </div>
+      </div>
+
+      <!-- Real Coordinate Interactive City Pings (Clickable to Filter!) -->
+      <!-- Kochi (Central Hub) -->
+      <button
+        type="button"
+        class="radar-ping-btn absolute w-9 h-9 flex items-center justify-center p-0 top-[48%] left-[44%] -translate-x-1/2 -translate-y-1/2 group focus:outline-none"
+        data-filter-city="kochi"
+        title="Filter by Kochi Hackathons"
+        aria-label="Filter Kochi hackathons"
+      >
+        <span class="absolute w-5 h-5 rounded-full bg-coconut-400 opacity-75 animate-ping"></span>
+        <span class="relative block w-3 h-3 rounded-full bg-coconut-400 border border-white shadow-[0_0_10px_#10b981] group-hover:scale-125 transition-transform"></span>
+        <span class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] font-mono font-bold text-white bg-neutral-900/90 px-1.5 py-0.5 rounded border border-coconut-500/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Kochi &bull; 7 events
+        </span>
+      </button>
+
+      <!-- Thiruvananthapuram (Capital) -->
+      <button
+        type="button"
+        class="radar-ping-btn absolute w-9 h-9 flex items-center justify-center p-0 top-[74%] left-[55%] -translate-x-1/2 -translate-y-1/2 group focus:outline-none"
+        data-filter-city="thiruvananthapuram"
+        title="Filter by Trivandrum Hackathons"
+        aria-label="Filter Trivandrum hackathons"
+      >
+        <span class="relative block w-2.5 h-2.5 rounded-full bg-coconut-400 border border-white shadow-[0_0_8px_#10b981] group-hover:scale-125 transition-transform"></span>
+        <span class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] font-mono font-bold text-white bg-neutral-900/90 px-1.5 py-0.5 rounded border border-coconut-500/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Trivandrum &bull; 2 events
+        </span>
+      </button>
+
+      <!-- Kozhikode (Malabar Hub) -->
+      <button
+        type="button"
+        class="radar-ping-btn absolute w-9 h-9 flex items-center justify-center p-0 top-[28%] left-[36%] -translate-x-1/2 -translate-y-1/2 group focus:outline-none"
+        data-filter-city="kozhikode"
+        title="Filter by Kozhikode Hackathons"
+        aria-label="Filter Kozhikode hackathons"
+      >
+        <span class="relative block w-2.5 h-2.5 rounded-full bg-coconut-400 border border-white shadow-[0_0_8px_#10b981] group-hover:scale-125 transition-transform"></span>
+        <span class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] font-mono font-bold text-white bg-neutral-900/90 px-1.5 py-0.5 rounded border border-coconut-500/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Kozhikode &bull; 2 events
+        </span>
+      </button>
+
+      <!-- Thrissur (Cultural Hub) -->
+      <button
+        type="button"
+        class="radar-ping-btn absolute w-9 h-9 flex items-center justify-center p-0 top-[40%] left-[48%] -translate-x-1/2 -translate-y-1/2 group focus:outline-none"
+        data-filter-city="thrissur"
+        title="Filter by Thrissur Hackathons"
+        aria-label="Filter Thrissur hackathons"
+      >
+        <span class="relative block w-2.5 h-2.5 rounded-full bg-coconut-400 border border-white shadow-[0_0_8px_#10b981] group-hover:scale-125 transition-transform"></span>
+        <span class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] font-mono font-bold text-white bg-neutral-900/90 px-1.5 py-0.5 rounded border border-coconut-500/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Thrissur &bull; 2 events
+        </span>
+      </button>
+
+      <!-- Palakkad -->
+      <button
+        type="button"
+        class="radar-ping-btn absolute w-9 h-9 flex items-center justify-center p-0 top-[36%] left-[62%] -translate-x-1/2 -translate-y-1/2 group focus:outline-none"
+        data-filter-city="palakkad"
+        title="Filter by Palakkad Hackathons"
+        aria-label="Filter Palakkad hackathons"
+      >
+        <span class="relative block w-2.5 h-2.5 rounded-full bg-coconut-400 border border-white shadow-[0_0_8px_#10b981] group-hover:scale-125 transition-transform"></span>
+        <span class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] font-mono font-bold text-white bg-neutral-900/90 px-1.5 py-0.5 rounded border border-coconut-500/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Palakkad &bull; 1 event
+        </span>
+      </button>
+
+      <!-- Kollam (South Kerala Hub) -->
+      <button
+        type="button"
+        class="radar-ping-btn absolute w-9 h-9 flex items-center justify-center p-0 top-[64%] left-[50%] -translate-x-1/2 -translate-y-1/2 group focus:outline-none"
+        data-filter-city="kollam"
+        title="Filter by Kollam Hackathons"
+        aria-label="Filter Kollam hackathons"
+      >
+        <span class="relative block w-2.5 h-2.5 rounded-full bg-coconut-400 border border-white shadow-[0_0_8px_#10b981] group-hover:scale-125 transition-transform"></span>
+        <span class="absolute left-6 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] font-mono font-bold text-white bg-neutral-900/90 px-1.5 py-0.5 rounded border border-coconut-500/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          Kollam &bull; 1 event
+        </span>
+      </button>
+
+      <div class="absolute bottom-3 text-[10px] font-mono text-coconut-400/70 uppercase tracking-widest bg-neutral-950/80 px-2 py-0.5 rounded border border-coconut-500/20">
+        RADAR &bull; KL SECTOR
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="absolute bottom-3 text-[10px] font-mono text-coconut-400/70 uppercase tracking-widest bg-neutral-950/80 px-2 py-0.5 rounded border border-coconut-500/20">
+        RADAR &bull; KL SECTOR
+      </div>
+    </div>
+  </div>
+</header>

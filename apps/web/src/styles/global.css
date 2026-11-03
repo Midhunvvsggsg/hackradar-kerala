@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #090d0c;
+  --color-surface: #101615;
+  --color-card: #141d1b;
+  --color-border: #1e2c29;
+  --color-text-main: #f9fafb;
+  --color-text-muted: #cbd5e1;
+  --color-kasavu: #f59e0b;
+  --color-coconut: #10b981;
+  --color-backwater: #0f766e;
+  --color-hero-from: #0e1715;
+  --color-hero-to: #090d0c;
+  --color-nav-bg: rgba(9, 13, 12, 0.92);
+}
+
+html.light, body.light {
+  --color-bg: #f6f9f8;
+  --color-surface: #ffffff;
+  --color-card: #ffffff;
+  --color-border: #dbe5e1;
+  --color-text-main: #0f172a;
+  --color-text-muted: #334155;
+  --color-kasavu: #d97706;
+  --color-coconut: #059669;
+  --color-backwater: #0d9488;
+  --color-hero-from: #eaf4f2;
+  --color-hero-to: #f6f9f8;
+  --color-nav-bg: rgba(255, 255, 255, 0.95);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body.light .bg-radar-card {
+    background-color: #ffffff !important;
+    border-color: #dbe5e1 !important;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  body.light .border-radar-border {
+    border-color: #dbe5e1 !important;
+  }
+
+  body.light .bg-radar-surface {
+    background-color: #f0f4f2 !important;
+  }
+
+  body.light .bg-radar-nav {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  body.light .bg-radar-hero {
+    background: linear-gradient(to bottom, #eaf4f2, #f6f9f8) !important;
+  }
+
+  body.light .bg-radar-footer {
+    background-color: #eef3f1 !important;
+  }
+
+  body.light .bg-neutral-900,
+  body.light .bg-neutral-800 {
+    background-color: #e2e8e5 !important;
+    color: #1e293b !important;
+  }
+
+  body.light .text-adaptive-title {
+    color: #0f172a !important;
+  }
+
+  body.light .text-adaptive-muted {
+    color: #334155 !important;
+  }
+
+  body.light .text-neutral-300,
+  body.light .text-neutral-400 {
+    color: #334155 !important;
+  }
+
+  body.light .text-neutral-500 {
+    color: #475569 !important;
+  }
+
+  body.light .text-red-400 {
+    color: #b91c1c !important;
+  }
+
+  body.light .text-kasavu-400 {
+    color: #b45309 !important;
+  }
+
+  body.light .text-coconut-400 {
+    color: #047857 !important;
+  }
+
+  body.light .text-backwater-400 {
+    color: #0f766e !important;
+  }
+
+  body.light .bg-coconut-500\/15 {
+    background-color: #d1fae5 !important;
+    border-color: #a7f3d0 !important;
+  }
+
+  body.light .bg-kasavu-500\/15 {
+    background-color: #fef3c7 !important;
+    border-color: #fde68a !important;
+  }
+
+  body.light .bg-red-950\/20 {
+    background-color: #fee2e2 !important;
+    border-color: #fca5a5 !important;
+  }
+
+  body.light .city-chip:not(.bg-coconut-600) {
+    background-color: #f0f4f2 !important;
+    border-color: #dbe5e1 !important;
+    color: #334155 !important;
+  }
+}
+
+.font-display {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+}
+
+.font-malayalam {
+  font-family: 'Anek Malayalam', sans-serif;
+}
+
+/* Decorative Kasavu Double Gold Border Divider */
+.kasavu-divider {
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    #f59e0b 0px,
+    #f59e0b 8px,
+    transparent 8px,
+    transparent 12px,
+    #d97706 12px,
+    #d97706 20px,
+    transparent 20px,
+    transparent 24px
+  );
+  opacity: 0.45;
+}
+
+@keyframes radar-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.radar-sweep-beam {
+  animation: radar-sweep 4s linear infinite;
+  transform-origin: center center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radar-sweep-beam,
+  .animate-pulse,
+  .animate-ping {
+    animation: none !important;
+  }
+}
+
+/* Hide horizontal scrollbar but allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

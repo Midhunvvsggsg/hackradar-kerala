@@ -1,0 +1,38 @@
+{
+  "result": [
+    {
+      "uuid": "fixture-devfolio-1",
+      "name": "Kochi Buildathon",
+      "slug": "kochi-buildathon",
+      "starts_at": "2026-11-20T09:00:00.000Z",
+      "ends_at": "2026-11-21T18:00:00.000Z",
+      "city": "Kochi",
+      "state": "Kerala",
+      "country": "India",
+      "location": "Kochi, Kerala, India",
+      "is_online": false,
+      "hackathon_setting": {
+        "reg_ends_at": "2026-11-15T18:00:00.000Z",
+        "subdomain": "kochibuild"
+      },
+      "themes": [{ "name": "AI" }, { "name": "Web" }]
+    },
+    {
+      "uuid": "fixture-devfolio-2",
+      "name": "Bengaluru DevJam",
+      "slug": "blr-devjam",
+      "starts_at": "2026-11-25T09:00:00.000Z",
+      "ends_at": "2026-11-26T18:00:00.000Z",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "country": "India",
+      "location": "Bengaluru, Karnataka, India",
+      "is_online": false,
+      "hackathon_setting": {
+        "reg_ends_at": "2026-11-20T18:00:00.000Z",
+        "subdomain": "blrdevjam"
+      },
+      "themes": [{ "name": "Cloud" }]
+    }
+  ]
+}

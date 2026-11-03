@@ -1,0 +1,978 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import "../styles/global.css";
+import {
+  HackathonDataset,
+  HackathonDatasetSchema,
+  filterHackathons,
+  sortHackathonsByClosingSoonest,
+  nowInKolkata,
+} from "@hackradar/core";
+import Navbar from "../components/Navbar.astro";
+import RadarHero from "../components/RadarHero.astro";
+import ClosingSoonStrip from "../components/ClosingSoonStrip.astro";
+import KeralaMapView from "../components/KeralaMapView.astro";
+import FilterBar from "../components/FilterBar.astro";
+import HackathonCard from "../components/HackathonCard.astro";
+import TerminalSection from "../components/TerminalSection.astro";
+import HealthFooter from "../components/HealthFooter.astro";
+
+// Load static dataset at build time
+let currentDir = process.cwd();
+let candidate = path.resolve(currentDir, "data/hackathons.json");
+while (!fs.existsSync(candidate) && path.dirname(currentDir) !== currentDir) {
+  currentDir = path.dirname(currentDir);
+  candidate = path.resolve(currentDir, "data/hackathons.json");
+}
+
+let dataset: HackathonDataset = {
+  generatedAt: new Date().toISOString(),
+  timezone: "Asia/Kolkata",
+  totalEvents: 0,
+  sources: [],
+  events: [],
+};
+
+if (fs.existsSync(candidate)) {
+  try {
+    const raw = JSON.parse(fs.readFileSync(candidate, "utf-8"));
+    dataset = HackathonDatasetSchema.parse(raw);
+  } catch (e) {
+    console.error("Failed to parse dataset in index.astro:", e);
+  }
+}
+
+// Strict non-negotiable filter at build time against current IST (Kerala hackathons only)
+const now = nowInKolkata();
+const defaultVisibleEvents = filterHackathons(dataset.events, { nearby: false }, now);
+const sortedEvents = sortHackathonsByClosingSoonest(defaultVisibleEvents);
+
+// Extract distinct Kerala cities
+const cities = Array.from(
+  new Set(
+    sortedEvents
+      .map((e) => e.city)
+      .filter((c): c is string => Boolean(c))
+  )
+).sort();
+
+// Extract all unique themes
+const allThemesSet = new Set<string>();
+sortedEvents.forEach((e) => {
+  (e.themes || []).forEach((t) => {
+    if (t && t.length > 1) allThemesSet.add(t);
+  });
+});
+const themes = Array.from(allThemesSet).slice(0, 16);
+---
+
+<!doctype html>
+<html lang="en" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HackRadar Kerala — Active Hackathons in Kerala & India</title>
+    <meta name="description" content="Discover hackathons currently open for registration in Kerala, India and online. Never miss a deadline with live countdowns and calendar exports." />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>" />
+    <link rel="alternate" type="application/rss+xml" title="HackRadar Kerala RSS Feed" href="/feed.xml" />
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="HackRadar Kerala — Active Hackathons" />
+    <meta property="og:description" content="Hackathons you can still join. Free and paid, online and near you in Kerala, India." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hackradar-kerala.org" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body class="min-h-screen bg-radar-bg text-neutral-100 flex flex-col font-sans transition-colors duration-200">
+    <!-- Slim Top Navigation Header -->
+    <Navbar />
+
+    <!-- Hero Radar Section with User Copy & Interactive Kerala Radar -->
+    <RadarHero totalEvents={defaultVisibleEvents.length} />
+
+    <!-- Toast Notification Element -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none px-4 py-2.5 rounded-xl bg-radar-card border border-coconut-500/50 text-white font-mono text-xs shadow-2xl flex items-center gap-2">
+      <span class="w-2 h-2 rounded-full bg-coconut-400"></span>
+      <span id="toastMessage">Action completed!</span>
+    </div>
+
+    <!-- Main Content Area: Standardized 1200px Layout Container -->
+    <main class="flex-1 max-w-[1200px] mx-auto w-full px-4 sm:px-6 lg:px-8 pt-8" id="events">
+      <!-- 72-Hour Closing Soon Strip -->
+      <ClosingSoonStrip hackathons={sortedEvents} />
+
+      <!-- Interactive SVG Kerala Map View (Toggleable) -->
+      <KeralaMapView hackathons={sortedEvents} />
+
+      <!-- Main Directory Section Heading for Semantic Accessibility -->
+      <h2 class="sr-only">Hackathons Directory</h2>
+
+      <!-- Sticky Filter Bar with Search, City Chips, Segments & Switch -->
+      <FilterBar cities={cities} themes={themes} />
+
+      <!-- Skeleton Grid (shown momentarily during filter state transition) -->
+      <div id="skeletonGrid" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        {[1, 2, 3, 4, 5, 6].map(() => (
+          <div class="rounded-2xl border border-radar-border bg-radar-card p-5 animate-pulse space-y-4">
+            <div class="flex justify-between">
+              <div class="h-4 w-20 bg-neutral-800 rounded"></div>
+              <div class="h-4 w-12 bg-neutral-800 rounded"></div>
+            </div>
+            <div class="h-6 w-3/4 bg-neutral-800 rounded"></div>
+            <div class="h-3 w-1/2 bg-neutral-800 rounded"></div>
+            <div class="h-4 w-24 bg-neutral-800 rounded"></div>
+            <div class="pt-4 border-t border-radar-border/70 flex justify-between">
+              <div class="h-4 w-28 bg-neutral-800 rounded"></div>
+              <div class="h-4 w-16 bg-neutral-800 rounded"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Friendly Empty State Container -->
+      <div id="emptyState" class="hidden text-center py-16 px-4 bg-radar-card border border-radar-border rounded-2xl my-6">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-coconut-500/10 text-coconut-400 mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h3 class="text-lg font-bold text-white text-adaptive-title mb-2">Radar is quiet.</h3>
+        <p class="text-sm text-neutral-300 text-adaptive-muted max-w-md mx-auto mb-6">
+          Radar is quiet. Try All Kerala or include nearby hubs.
+        </p>
+        <div class="flex items-center justify-center gap-3">
+          <button id="clearFiltersAction" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-neutral-800 hover:bg-neutral-700 text-white transition border border-neutral-700">
+            Reset all filters
+          </button>
+          <a href="https://github.com/Midhunvvsggsg/hackradar-kerala/tree/main/data/manual.yaml" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-coconut-600 hover:bg-coconut-500 text-white transition">
+            Submit an Event (+ manual.yaml)
+          </a>
+        </div>
+      </div>
+
+      <!-- Hackathons Grid (Works without JS!) -->
+      <div id="hackathonsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedEvents.map((hackathon) => (
+          <HackathonCard hackathon={hackathon} />
+        ))}
+      </div>
+
+      <!-- Terminal CLI Radar Showcase with One-Click Copy-Paste -->
+      <TerminalSection />
+    </main>
+
+    <!-- Source Health & Information Footer -->
+    <HealthFooter generatedAt={dataset.generatedAt} sources={dataset.sources} />
+
+    <!-- Client-Side Interactivity Island -->
+    <script>
+      // Toast notification helper
+      function showToast(msg: string) {
+        const toast = document.getElementById("toastNotification");
+        const msgSpan = document.getElementById("toastMessage");
+        if (!toast || !msgSpan) return;
+        msgSpan.textContent = msg;
+        toast.classList.remove("translate-y-20", "opacity-0");
+        toast.classList.add("translate-y-0", "opacity-100");
+        setTimeout(() => {
+          toast.classList.remove("translate-y-0", "opacity-100");
+          toast.classList.add("translate-y-20", "opacity-0");
+        }, 2200);
+      }
+
+      // Map View Toggle Handlers
+      const toggleMapViewBtn = document.getElementById("toggleMapViewBtn");
+      const navMapBtn = document.getElementById("navMapBtn");
+      const closeMapViewBtn = document.getElementById("closeMapViewBtn");
+      const keralaMapViewContainer = document.getElementById("keralaMapViewContainer");
+
+      function toggleMap(show?: boolean) {
+        if (!keralaMapViewContainer) return;
+        const shouldShow = show !== undefined ? show : keralaMapViewContainer.classList.contains("hidden");
+        if (shouldShow) {
+          keralaMapViewContainer.classList.remove("hidden");
+          keralaMapViewContainer.scrollIntoView({ behavior: "smooth" });
+        } else {
+          keralaMapViewContainer.classList.add("hidden");
+        }
+      }
+
+      if (toggleMapViewBtn) toggleMapViewBtn.addEventListener("click", () => toggleMap());
+      if (navMapBtn) navMapBtn.addEventListener("click", () => toggleMap(true));
+      if (closeMapViewBtn) closeMapViewBtn.addEventListener("click", () => toggleMap(false));
+      if (window.location.search.includes("view=map") || window.location.hash === "#map") {
+        toggleMap(true);
+      }
+
+      // 1. Filter & Sort State Management
+      interface State {
+        q: string;
+        fee: "all" | "free" | "paid";
+        mode: "all" | "online" | "offline" | "hybrid";
+        city: string;
+        nearby: boolean;
+        sort: "closing" | "newest" | "prize";
+        themes: string[];
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const initialThemesParam = params.get("themes");
+      const state: State = {
+        q: params.get("q") || "",
+        fee: (params.get("fee") as State["fee"]) || "all",
+        mode: (params.get("mode") as State["mode"]) || "all",
+        city: (params.get("city") || "").toLowerCase(),
+        nearby: params.get("nearby") === "true",
+        sort: (params.get("sort") as State["sort"]) || "closing",
+        themes: initialThemesParam ? initialThemesParam.split(",").filter(Boolean) : [],
+      };
+
+      const searchInput = document.getElementById("searchInput") as HTMLInputElement | null;
+      const sortSelector = document.getElementById("sortSelector") as HTMLSelectElement | null;
+      const nearbyToggle = document.getElementById("nearbyToggle") as HTMLInputElement | null;
+      const feeBtns = document.querySelectorAll<HTMLButtonElement>(".fee-btn");
+      const modeBtns = document.querySelectorAll<HTMLButtonElement>(".mode-btn");
+      const cityChips = document.querySelectorAll<HTMLButtonElement>(".city-chip");
+      const themeChips = document.querySelectorAll<HTMLButtonElement>(".theme-chip");
+      const themeToggleCollapseBtn = document.getElementById("themeToggleCollapseBtn");
+      const themeChipsRow = document.getElementById("themeChipsRow");
+      const themeArrowIcon = document.getElementById("themeArrowIcon");
+      const resultsCount = document.getElementById("resultsCount");
+      const activeFilterChips = document.getElementById("activeFilterChips");
+      const resetFiltersBtn = document.getElementById("resetFiltersBtn");
+      const clearFiltersAction = document.getElementById("clearFiltersAction");
+      const emptyState = document.getElementById("emptyState");
+      const grid = document.getElementById("hackathonsGrid");
+      const cards = Array.from(document.querySelectorAll<HTMLElement>(".hackathon-card"));
+
+      // Interactive Radar Hero Pings (click to filter by city)
+      document.querySelectorAll<HTMLButtonElement>(".radar-ping-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const targetCity = btn.getAttribute("data-filter-city");
+          const targetNearby = btn.getAttribute("data-filter-nearby");
+
+          if (targetCity) {
+            state.city = targetCity;
+          }
+          if (targetNearby === "true") {
+            state.nearby = true;
+            if (nearbyToggle) nearbyToggle.checked = true;
+          }
+          applyFilters();
+          document.getElementById("events")?.scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // Interactive Map Pins (click to filter by city)
+      document.querySelectorAll<SVGGElement>(".map-city-pin").forEach((pin) => {
+        pin.addEventListener("click", () => {
+          const targetCity = pin.getAttribute("data-city") || "";
+          state.city = targetCity;
+          applyFilters();
+          showToast(`Filtered to ${targetCity.toUpperCase()}`);
+        });
+      });
+
+      // Mobile Drawer Elements
+      const mobileFilterToggleBtn = document.getElementById("mobileFilterToggleBtn");
+      const mobileFilterDrawer = document.getElementById("mobileFilterDrawer");
+      const closeMobileFilterBtn = document.getElementById("closeMobileFilterBtn");
+      const mobileSortSelector = document.getElementById("mobileSortSelector") as HTMLSelectElement | null;
+      const mobileNearbyToggle = document.getElementById("mobileNearbyToggle") as HTMLInputElement | null;
+      const mFeeBtns = document.querySelectorAll<HTMLButtonElement>(".m-fee-btn");
+      const mModeBtns = document.querySelectorAll<HTMLButtonElement>(".m-mode-btn");
+      const mobileFilterBadge = document.getElementById("mobileFilterBadge");
+      const mobileResetBtn = document.getElementById("mobileResetBtn");
+      const mobileApplyBtn = document.getElementById("mobileApplyBtn");
+
+      // Keyboard shortcut '/' to focus search input
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "/" && document.activeElement !== searchInput) {
+          e.preventDefault();
+          searchInput?.focus();
+        }
+      });
+
+      // Toggle Theme collapsible row
+      if (themeToggleCollapseBtn && themeChipsRow && themeArrowIcon) {
+        themeToggleCollapseBtn.addEventListener("click", () => {
+          const isHidden = themeChipsRow.classList.contains("hidden");
+          if (isHidden) {
+            themeChipsRow.classList.remove("hidden");
+            themeChipsRow.classList.add("flex");
+            themeArrowIcon.classList.add("rotate-180");
+          } else {
+            themeChipsRow.classList.add("hidden");
+            themeChipsRow.classList.remove("flex");
+            themeArrowIcon.classList.remove("rotate-180");
+          }
+        });
+      }
+
+      // Mobile Drawer open/close
+      if (mobileFilterToggleBtn && mobileFilterDrawer) {
+        mobileFilterToggleBtn.addEventListener("click", () => {
+          mobileFilterDrawer.classList.remove("hidden");
+          if (mobileSortSelector) mobileSortSelector.value = state.sort;
+          if (mobileNearbyToggle) mobileNearbyToggle.checked = state.nearby;
+          syncMobilePillStyles();
+        });
+      }
+
+      const closeDrawer = () => {
+        mobileFilterDrawer?.classList.add("hidden");
+      };
+
+      if (closeMobileFilterBtn) closeMobileFilterBtn.addEventListener("click", closeDrawer);
+      if (mobileApplyBtn) {
+        mobileApplyBtn.addEventListener("click", () => {
+          closeDrawer();
+          applyFilters();
+        });
+      }
+      if (mobileFilterDrawer) {
+        mobileFilterDrawer.addEventListener("click", (e) => {
+          if (e.target === mobileFilterDrawer) closeDrawer();
+        });
+      }
+
+      function syncMobilePillStyles() {
+        mFeeBtns.forEach((btn) => {
+          const val = btn.getAttribute("data-val");
+          if (val === state.fee) {
+            btn.className = "m-fee-btn py-2 rounded-lg bg-coconut-600 text-white font-medium";
+          } else {
+            btn.className = "m-fee-btn py-2 rounded-lg bg-radar-card border border-radar-border text-neutral-400";
+          }
+        });
+
+        mModeBtns.forEach((btn) => {
+          const val = btn.getAttribute("data-val");
+          if (val === state.mode) {
+            btn.className = "m-mode-btn py-2 rounded-lg bg-coconut-600 text-white font-medium";
+          } else {
+            btn.className = "m-mode-btn py-2 rounded-lg bg-radar-card border border-radar-border text-neutral-400";
+          }
+        });
+      }
+
+      mFeeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.fee = btn.getAttribute("data-val") as State["fee"];
+          syncMobilePillStyles();
+        });
+      });
+
+      mModeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.mode = btn.getAttribute("data-val") as State["mode"];
+          syncMobilePillStyles();
+        });
+      });
+
+      if (mobileSortSelector) {
+        mobileSortSelector.addEventListener("change", (e) => {
+          state.sort = (e.target as HTMLSelectElement).value as State["sort"];
+          if (sortSelector) sortSelector.value = state.sort;
+        });
+      }
+
+      if (mobileNearbyToggle) {
+        mobileNearbyToggle.addEventListener("change", (e) => {
+          state.nearby = (e.target as HTMLInputElement).checked;
+          if (nearbyToggle) nearbyToggle.checked = state.nearby;
+        });
+      }
+
+      // Sync form controls with initial state
+      if (searchInput && state.q) searchInput.value = state.q;
+      if (sortSelector && state.sort) sortSelector.value = state.sort;
+      if (nearbyToggle) nearbyToggle.checked = state.nearby;
+
+      function updateActiveButtons() {
+        feeBtns.forEach((btn) => {
+          const val = btn.getAttribute("data-val");
+          if (val === state.fee) {
+            btn.className = "fee-btn px-2.5 py-1 rounded bg-coconut-600 text-white font-medium transition";
+          } else {
+            btn.className = "fee-btn px-2.5 py-1 rounded text-neutral-400 hover:text-white transition";
+          }
+        });
+
+        modeBtns.forEach((btn) => {
+          const val = btn.getAttribute("data-val");
+          if (val === state.mode) {
+            btn.className = "mode-btn px-2.5 py-1 rounded bg-coconut-600 text-white font-medium transition";
+          } else {
+            btn.className = "mode-btn px-2.5 py-1 rounded text-neutral-400 hover:text-white transition";
+          }
+        });
+
+        cityChips.forEach((chip) => {
+          const c = chip.getAttribute("data-city") || "";
+          if (c === state.city) {
+            chip.className = "city-chip flex-shrink-0 px-3 py-1 rounded-full text-xs font-mono font-medium bg-coconut-600 text-white transition shadow-sm";
+          } else {
+            chip.className = "city-chip flex-shrink-0 px-3 py-1 rounded-full text-xs font-mono text-neutral-400 bg-radar-card border border-radar-border hover:text-white hover:border-neutral-500 transition";
+          }
+        });
+
+        themeChips.forEach((chip) => {
+          const t = chip.getAttribute("data-theme") || "";
+          if (state.themes.includes(t)) {
+            chip.className = "theme-chip px-2 py-0.5 rounded text-[11px] font-mono bg-coconut-600/30 text-coconut-300 border border-coconut-500 transition";
+          } else {
+            chip.className = "theme-chip px-2 py-0.5 rounded text-[11px] font-mono bg-neutral-900 text-neutral-400 border border-neutral-800 hover:border-coconut-500 hover:text-neutral-200 transition";
+          }
+        });
+
+        // Update mobile badge count
+        let activeCount = 0;
+        if (state.fee !== "all") activeCount++;
+        if (state.mode !== "all") activeCount++;
+        if (state.city) activeCount++;
+        if (state.nearby) activeCount++;
+        if (state.themes.length > 0) activeCount += state.themes.length;
+        if (state.sort !== "closing") activeCount++;
+        if (state.q) activeCount++;
+
+        if (mobileFilterBadge) {
+          if (activeCount > 0) {
+            mobileFilterBadge.textContent = String(activeCount);
+            mobileFilterBadge.classList.remove("hidden");
+            mobileFilterBadge.classList.add("inline-flex");
+          } else {
+            mobileFilterBadge.classList.add("hidden");
+            mobileFilterBadge.classList.remove("inline-flex");
+          }
+        }
+      }
+
+      function renderActiveChips() {
+        if (!activeFilterChips) return;
+        activeFilterChips.innerHTML = "";
+
+        const addChip = (label: string, onRemove: () => void) => {
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-mono bg-neutral-800 text-coconut-300 border border-neutral-700 hover:border-coconut-500 transition";
+          chip.innerHTML = `<span>${label}</span><span class="text-neutral-400 hover:text-white ml-0.5">&times;</span>`;
+          chip.addEventListener("click", onRemove);
+          activeFilterChips.appendChild(chip);
+        };
+
+        if (state.fee !== "all") {
+          addChip(`Fee: ${state.fee.toUpperCase()}`, () => {
+            state.fee = "all";
+            applyFilters();
+          });
+        }
+
+        if (state.mode !== "all") {
+          addChip(`Mode: ${state.mode.toUpperCase()}`, () => {
+            state.mode = "all";
+            applyFilters();
+          });
+        }
+
+        if (state.city) {
+          const cityLabel = state.city.charAt(0).toUpperCase() + state.city.slice(1);
+          addChip(`City: ${cityLabel}`, () => {
+            state.city = "";
+            applyFilters();
+          });
+        }
+
+        if (state.nearby) {
+          addChip("+ Nearby Hubs", () => {
+            state.nearby = false;
+            if (nearbyToggle) nearbyToggle.checked = false;
+            applyFilters();
+          });
+        }
+
+        state.themes.forEach((theme) => {
+          addChip(`#${theme}`, () => {
+            state.themes = state.themes.filter((t) => t !== theme);
+            applyFilters();
+          });
+        });
+
+        if (state.sort !== "closing") {
+          const sortLabel = state.sort === "newest" ? "Newest" : "Prize High to Low";
+          addChip(`Sort: ${sortLabel}`, () => {
+            state.sort = "closing";
+            if (sortSelector) sortSelector.value = "closing";
+            applyFilters();
+          });
+        }
+
+        if (state.q) {
+          addChip(`"${state.q}"`, () => {
+            state.q = "";
+            if (searchInput) searchInput.value = "";
+            applyFilters();
+          });
+        }
+      }
+
+      function pushURLState() {
+        const url = new URL(window.location.href);
+        if (state.q) url.searchParams.set("q", state.q);
+        else url.searchParams.delete("q");
+
+        if (state.fee !== "all") url.searchParams.set("fee", state.fee);
+        else url.searchParams.delete("fee");
+
+        if (state.mode !== "all") url.searchParams.set("mode", state.mode);
+        else url.searchParams.delete("mode");
+
+        if (state.city) url.searchParams.set("city", state.city);
+        else url.searchParams.delete("city");
+
+        if (state.nearby) url.searchParams.set("nearby", "true");
+        else url.searchParams.delete("nearby");
+
+        if (state.sort !== "closing") url.searchParams.set("sort", state.sort);
+        else url.searchParams.delete("sort");
+
+        if (state.themes.length > 0) url.searchParams.set("themes", state.themes.join(","));
+        else url.searchParams.delete("themes");
+
+        window.history.replaceState({}, "", url.toString());
+      }
+
+      function applyFilters() {
+        let visibleCount = 0;
+        const nowMs = Date.now();
+
+        // 1. Filter cards
+        cards.forEach((card) => {
+          const title = card.getAttribute("data-title") || "";
+          const org = card.getAttribute("data-organizer") || "";
+          const city = card.getAttribute("data-city") || "";
+          const mode = card.getAttribute("data-mode") || "";
+          const fee = card.getAttribute("data-fee") || "";
+          const isNearby = card.getAttribute("data-nearby") === "true";
+          const deadlineMs = parseInt(card.getAttribute("data-deadline-ms") || "0", 10);
+          const endMs = parseInt(card.getAttribute("data-end-ms") || "0", 10);
+          const startMs = parseInt(card.getAttribute("data-start-ms") || "0", 10);
+          const cardThemes = card.getAttribute("data-themes") || "";
+
+          // Strict runtime check: ensure ALL listed hackathons are upcoming and NOT ended
+          // 1. If registration deadline has passed, registration is closed -> hide!
+          if (deadlineMs > 0 && deadlineMs < nowMs) {
+            card.style.display = "none";
+            return;
+          }
+
+          // 2. If event end date has passed, event has ended -> hide!
+          if (endMs > 0 && endMs < nowMs) {
+            card.style.display = "none";
+            return;
+          }
+
+          // 3. If end date is missing but start date has passed -> hide!
+          if (endMs === 0 && startMs > 0 && startMs < nowMs) {
+            card.style.display = "none";
+            return;
+          }
+
+          // 4. If no dates are specified at all -> hide!
+          if (deadlineMs === 0 && endMs === 0 && startMs === 0) {
+            card.style.display = "none";
+            return;
+          }
+
+          // Nearby filter: if nearby is OFF and item is marked nearby, hide
+          if (!state.nearby && isNearby) {
+            card.style.display = "none";
+            return;
+          }
+
+          // Fee filter
+          if (state.fee === "free" && fee !== "free") {
+            card.style.display = "none";
+            return;
+          }
+          if (state.fee === "paid" && fee !== "paid") {
+            card.style.display = "none";
+            return;
+          }
+
+          // Mode filter
+          if (state.mode === "offline" && mode !== "offline") {
+            card.style.display = "none";
+            return;
+          }
+          if (state.mode === "online" && mode !== "online") {
+            card.style.display = "none";
+            return;
+          }
+          if (state.mode === "hybrid" && mode !== "hybrid") {
+            card.style.display = "none";
+            return;
+          }
+
+          // City filter
+          if (state.city && !city.includes(state.city)) {
+            card.style.display = "none";
+            return;
+          }
+
+          // Multi-select theme filter
+          if (state.themes.length > 0) {
+            const hasMatchingTheme = state.themes.some((t) => cardThemes.includes(t));
+            if (!hasMatchingTheme) {
+              card.style.display = "none";
+              return;
+            }
+          }
+
+          // Search query
+          if (state.q) {
+            const query = state.q.toLowerCase().trim();
+            const matches =
+              title.includes(query) ||
+              org.includes(query) ||
+              city.includes(query) ||
+              cardThemes.includes(query);
+
+            if (!matches) {
+              card.style.display = "none";
+              return;
+            }
+          }
+
+          card.style.display = "flex";
+          visibleCount++;
+        });
+
+        // 2. Sort visible cards in DOM
+        if (grid) {
+          const visibleCards = cards.filter((c) => c.style.display !== "none");
+          visibleCards.sort((a, b) => {
+            if (state.sort === "newest") {
+              const addedA = parseInt(a.getAttribute("data-added-ms") || "0", 10);
+              const addedB = parseInt(b.getAttribute("data-added-ms") || "0", 10);
+              return addedB - addedA;
+            } else if (state.sort === "prize") {
+              const prizeA = parseInt(a.getAttribute("data-prize-numeric") || "0", 10);
+              const prizeB = parseInt(b.getAttribute("data-prize-numeric") || "0", 10);
+              return prizeB - prizeA;
+            } else {
+              // "closing": closing soonest
+              const dlnA = parseInt(a.getAttribute("data-deadline-ms") || "0", 10);
+              const dlnB = parseInt(b.getAttribute("data-deadline-ms") || "0", 10);
+              if (dlnA > 0 && dlnB > 0) return dlnA - dlnB;
+              if (dlnA > 0) return -1;
+              if (dlnB > 0) return 1;
+              return 0;
+            }
+          });
+
+          visibleCards.forEach((card) => grid.appendChild(card));
+        }
+
+        // Update count text
+        if (resultsCount) {
+          resultsCount.textContent = `Showing ${visibleCount} open hackathon${visibleCount === 1 ? "" : "s"}`;
+        }
+
+        // Empty state visibility
+        if (emptyState && grid) {
+          if (visibleCount === 0) {
+            emptyState.classList.remove("hidden");
+            grid.classList.add("hidden");
+          } else {
+            emptyState.classList.add("hidden");
+            grid.classList.remove("hidden");
+          }
+        }
+
+        // Show/hide reset button
+        const hasActiveFilters =
+          state.q || state.fee !== "all" || state.mode !== "all" || state.city || state.nearby || state.sort !== "closing" || state.themes.length > 0;
+        if (resetFiltersBtn) {
+          if (hasActiveFilters) resetFiltersBtn.classList.remove("hidden");
+          else resetFiltersBtn.classList.add("hidden");
+        }
+
+        updateActiveButtons();
+        renderActiveChips();
+        pushURLState();
+      }
+
+      // Event listeners
+      if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+          state.q = (e.target as HTMLInputElement).value;
+          applyFilters();
+        });
+      }
+
+      cityChips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          state.city = chip.getAttribute("data-city") || "";
+          applyFilters();
+        });
+      });
+
+      themeChips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const t = chip.getAttribute("data-theme") || "";
+          if (state.themes.includes(t)) {
+            state.themes = state.themes.filter((x) => x !== t);
+          } else {
+            state.themes.push(t);
+          }
+          applyFilters();
+        });
+      });
+
+      if (sortSelector) {
+        sortSelector.addEventListener("change", (e) => {
+          state.sort = (e.target as HTMLSelectElement).value as State["sort"];
+          applyFilters();
+        });
+      }
+
+      if (nearbyToggle) {
+        nearbyToggle.addEventListener("change", (e) => {
+          state.nearby = (e.target as HTMLInputElement).checked;
+          applyFilters();
+        });
+      }
+
+      feeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.fee = btn.getAttribute("data-val") as State["fee"];
+          applyFilters();
+        });
+      });
+
+      modeBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.mode = btn.getAttribute("data-val") as State["mode"];
+          applyFilters();
+        });
+      });
+
+      function resetAll() {
+        state.q = "";
+        state.fee = "all";
+        state.mode = "all";
+        state.city = "";
+        state.nearby = false;
+        state.sort = "closing";
+        state.themes = [];
+        if (searchInput) searchInput.value = "";
+        if (sortSelector) sortSelector.value = "closing";
+        if (nearbyToggle) nearbyToggle.checked = false;
+        applyFilters();
+        showToast("Filters reset to default");
+      }
+
+      if (resetFiltersBtn) resetFiltersBtn.addEventListener("click", resetAll);
+      if (clearFiltersAction) clearFiltersAction.addEventListener("click", resetAll);
+      if (mobileResetBtn) {
+        mobileResetBtn.addEventListener("click", () => {
+          resetAll();
+          closeDrawer();
+        });
+      }
+
+      // Initial filter apply
+      applyFilters();
+
+      // 2. Live Countdown Timers (tick every 1000ms)
+      function updateCountdowns() {
+        const nowMs = Date.now();
+        let hasExpiredEvent = false;
+
+        document.querySelectorAll<HTMLElement>(".countdown-container").forEach((el) => {
+          const targetMs = parseInt(el.getAttribute("data-target-ms") || "0", 10);
+          if (!targetMs) return;
+
+          const diff = targetMs - nowMs;
+          const textSpan = el.querySelector(".countdown-text");
+          if (!textSpan) return;
+
+          if (diff <= 0) {
+            textSpan.textContent = "Registration Closed";
+            el.className = "countdown-container font-mono text-xs font-semibold text-neutral-500";
+            hasExpiredEvent = true;
+            return;
+          }
+
+          const totalSecs = Math.floor(diff / 1000);
+          const days = Math.floor(totalSecs / 86400);
+          const hours = Math.floor((totalSecs % 86400) / 3600);
+          const mins = Math.floor((totalSecs % 3600) / 60);
+          const secs = totalSecs % 60;
+          const isUrgent = diff < 3 * 24 * 60 * 60 * 1000;
+
+          let display = "";
+          if (days > 1) {
+            display = `Closes in ${days}d ${hours}h`;
+          } else if (days === 1) {
+            display = `Closes in 1d ${hours}h ${mins}m`;
+          } else if (hours > 0) {
+            display = `Closes in ${hours}h ${mins}m ${secs}s`;
+          } else {
+            display = `Closes in ${mins}m ${secs}s`;
+          }
+
+          if (isUrgent) {
+            el.className = "countdown-container font-mono text-xs font-semibold text-red-400";
+            textSpan.textContent = `⚡ ${display}`;
+          } else {
+            el.className = "countdown-container font-mono text-xs font-semibold text-cyan-300";
+            textSpan.textContent = display;
+          }
+        });
+
+        // Also check if any visible card has ended based on deadline or end date
+        cards.forEach((card) => {
+          if (card.style.display !== "none") {
+            const dMs = parseInt(card.getAttribute("data-deadline-ms") || "0", 10);
+            const eMs = parseInt(card.getAttribute("data-end-ms") || "0", 10);
+            const sMs = parseInt(card.getAttribute("data-start-ms") || "0", 10);
+            if (
+              (dMs > 0 && dMs < nowMs) ||
+              (eMs > 0 && eMs < nowMs) ||
+              (eMs === 0 && sMs > 0 && sMs < nowMs)
+            ) {
+              hasExpiredEvent = true;
+            }
+          }
+        });
+
+        if (hasExpiredEvent) {
+          applyFilters();
+        }
+      }
+      setInterval(updateCountdowns, 1000);
+
+      // 3. In-Browser .ics Calendar Download with Toast
+      document.querySelectorAll(".btn-ics").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const jsonStr = btn.getAttribute("data-json");
+          if (!jsonStr) return;
+          try {
+            const h = JSON.parse(jsonStr);
+            const now = new Date();
+            const formatICS = (d: Date) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+            const dtstamp = formatICS(now);
+            const events: string[] = [];
+            const location = h.mode === "online" ? "Online" : [h.city, h.state, h.country].filter(Boolean).join(", ");
+
+            if (h.registrationDeadline) {
+              const deadline = new Date(h.registrationDeadline);
+              const startStr = formatICS(deadline);
+              const endStr = formatICS(new Date(deadline.getTime() + 3600000));
+              events.push([
+                "BEGIN:VEVENT",
+                `UID:deadline-${h.id}@hackradar.kerala`,
+                `DTSTAMP:${dtstamp}`,
+                `DTSTART:${startStr}`,
+                `DTEND:${endStr}`,
+                `SUMMARY:[DEADLINE] ${h.title} Registration Closes`,
+                `DESCRIPTION:Registration deadline for ${h.title}\\nOrganizer: ${h.organizer}\\nDetails: ${h.url}`,
+                `LOCATION:${location}`,
+                `URL:${h.url}`,
+                "BEGIN:VALARM",
+                "ACTION:DISPLAY",
+                `DESCRIPTION:Registration closes tomorrow for ${h.title}`,
+                "TRIGGER:-P1D",
+                "END:VALARM",
+                "END:VEVENT",
+              ].join("\r\n"));
+            }
+
+            const icsContent = [
+              "BEGIN:VCALENDAR",
+              "VERSION:2.0",
+              "PRODID:-//HackRadar Kerala//EN",
+              "CALSCALE:GREGORIAN",
+              "METHOD:PUBLISH",
+              ...events,
+              "END:VCALENDAR",
+            ].join("\r\n");
+
+            const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            const slug = h.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+            a.href = url;
+            a.download = `${slug}.ics`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast(`Exported ${h.title} calendar (.ics)`);
+          } catch (e) {
+            console.error("Failed to generate ICS in browser:", e);
+          }
+        });
+      });
+
+      // 4. Share Event Link with Toast
+      document.querySelectorAll(".btn-share").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          const url = btn.getAttribute("data-url") || window.location.href;
+          const title = btn.getAttribute("data-title") || "Hackathon on HackRadar Kerala";
+
+          if (navigator.share) {
+            try {
+              await navigator.share({ title, url });
+              return;
+            } catch {
+              // Fall through to clipboard
+            }
+          }
+
+          navigator.clipboard.writeText(url);
+          showToast("Event link copied to clipboard!");
+        });
+      });
+
+      // 5. Terminal CLI Command Copy Handlers
+      function copyTerminalCmd(cmd: string, btn?: HTMLElement | null) {
+        navigator.clipboard.writeText(cmd).then(() => {
+          showToast(`Copied "${cmd}" to clipboard! Run in terminal.`);
+          if (btn) {
+            const label = btn.querySelector(".btn-label");
+            if (label) {
+              const origText = label.textContent;
+              label.textContent = "✓ Copied!";
+              setTimeout(() => { label.textContent = origText; }, 2000);
+            }
+          }
+        }).catch(() => {
+          showToast(`Terminal command: ${cmd}`);
+        });
+      }
+
+      document.querySelectorAll<HTMLElement>(".terminal-copy-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const cmd = btn.getAttribute("data-cmd") || "npx hackradar";
+          copyTerminalCmd(cmd, btn);
+        });
+      });
+
+      const copyCliBtn = document.getElementById("copyCliBtn");
+      const cliCommandPill = document.getElementById("cliCommandPill");
+      if (copyCliBtn) {
+        copyCliBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          copyTerminalCmd("npx hackradar", copyCliBtn);
+        });
+      }
+      if (cliCommandPill) {
+        cliCommandPill.addEventListener("click", () => {
+          copyTerminalCmd("npx hackradar", copyCliBtn);
+        });
+      }
+    </script>
+  </body>
+</html>

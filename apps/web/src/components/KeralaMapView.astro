@@ -1,0 +1,199 @@
+---
+import { Hackathon } from "@hackradar/core";
+
+interface Props {
+  hackathons: Hackathon[];
+}
+
+const { hackathons } = Astro.props;
+
+// Group hackathon count by city
+const cityCounts: Record<string, number> = {};
+hackathons.forEach((h) => {
+  if (h.city) {
+    const key = h.city.toLowerCase();
+    cityCounts[key] = (cityCounts[key] || 0) + 1;
+  }
+});
+
+// Kerala city coordinates on SVG viewBox [0 0 400 800]
+const pinLocations = [
+  { name: "Kasaragod", id: "kasaragod", x: 90, y: 70 },
+  { name: "Kannur", id: "kannur", x: 110, y: 140 },
+  { name: "Wayanad", id: "wayanad", x: 175, y: 175 },
+  { name: "Kozhikode", id: "kozhikode", x: 135, y: 220 },
+  { name: "Malappuram", id: "malappuram", x: 165, y: 275 },
+  { name: "Palakkad", id: "palakkad", x: 230, y: 325 },
+  { name: "Thrissur", id: "thrissur", x: 180, y: 380 },
+  { name: "Kochi", id: "kochi", x: 165, y: 460 },
+  { name: "Idukki", id: "idukki", x: 255, y: 460 },
+  { name: "Kottayam", id: "kottayam", x: 195, y: 520 },
+  { name: "Alappuzha", id: "alappuzha", x: 160, y: 560 },
+  { name: "Pathanamthitta", id: "pathanamthitta", x: 225, y: 580 },
+  { name: "Kollam", id: "kollam", x: 200, y: 640 },
+  { name: "Thiruvananthapuram", id: "thiruvananthapuram", x: 240, y: 720 },
+];
+---
+
+<div id="keralaMapViewContainer" class="hidden mb-10 p-6 rounded-2xl border border-radar-border bg-radar-card">
+  <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-radar-border/70 mb-6">
+    <div>
+      <h2 class="text-lg font-bold text-white text-adaptive-title font-mono flex items-center gap-2">
+        <span class="text-coconut-400">🗺️</span>
+        <span>Kerala Hackathon Map</span>
+      </h2>
+      <p class="text-xs text-neutral-300 text-adaptive-muted mt-1">
+        Click any city pin on the map to filter open hackathons in that region.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      id="closeMapViewBtn"
+      class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 transition"
+    >
+      <span>Switch to List View ☰</span>
+    </button>
+  </div>
+
+  <div class="flex flex-col lg:flex-row items-center justify-center gap-8">
+    <!-- SVG Map Graphic -->
+    <div class="relative w-full max-w-[340px] aspect-[1/2] flex items-center justify-center">
+      <svg
+        viewBox="0 0 360 780"
+        class="w-full h-full drop-shadow-[0_0_25px_rgba(20,184,166,0.15)]"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <!-- Simplified Stylized Kerala Coastal Outline -->
+        <path
+          d="M 85 45
+             C 105 55, 120 90, 115 130
+             C 130 145, 185 160, 185 185
+             C 185 210, 150 230, 140 250
+             C 170 270, 240 300, 245 330
+             C 245 360, 195 375, 185 400
+             C 185 425, 275 440, 270 480
+             C 265 520, 215 540, 210 570
+             C 240 590, 255 640, 250 680
+             C 245 720, 270 745, 250 760
+             C 220 750, 190 680, 185 640
+             C 150 600, 145 540, 150 490
+             C 145 440, 160 400, 155 350
+             C 120 300, 115 240, 120 200
+             C 90 150, 75 90, 85 45 Z"
+          fill="#111c19"
+          stroke="#14b8a6"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="transition-colors hover:fill-[#142320]"
+        />
+
+        <!-- District Interconnect Lines -->
+        <path
+          d="M 90 70 L 110 140 L 135 220 L 180 380 L 165 460 L 160 560 L 200 640 L 240 720"
+          stroke="#0f766e"
+          stroke-width="1.2"
+          stroke-dasharray="3 3"
+          opacity="0.6"
+        />
+
+        <!-- City Pins -->
+        {pinLocations.map((pin) => {
+          const count = cityCounts[pin.id] || 0;
+          const hasEvents = count > 0;
+          return (
+            <g
+              class="map-city-pin cursor-pointer transition-transform duration-200 hover:scale-125"
+              data-city={pin.id}
+              role="button"
+              tabindex="0"
+              aria-label={`${pin.name}: ${count} hackathons`}
+            >
+              <!-- Outer Glow if has events -->
+              {hasEvents && (
+                <circle
+                  cx={pin.x}
+                  cy={pin.y}
+                  r="12"
+                  fill="#10b981"
+                  opacity="0.25"
+                  class="animate-pulse"
+                />
+              )}
+
+              <!-- Main Pin Circle -->
+              <circle
+                cx={pin.x}
+                cy={pin.y}
+                r={hasEvents ? "7" : "4.5"}
+                fill={hasEvents ? "#10b981" : "#4b5563"}
+                stroke="#090d0c"
+                stroke-width="2"
+              />
+
+              <!-- Count Badge on Pin -->
+              {hasEvents && (
+                <text
+                  x={pin.x}
+                  y={pin.y + 3.5}
+                  text-anchor="middle"
+                  font-size="9"
+                  font-weight="bold"
+                  fill="#062e22"
+                  font-family="monospace"
+                >
+                  {count}
+                </text>
+              )}
+
+              <!-- City Label -->
+              <text
+                x={pin.x + (pin.x > 200 ? -12 : 12)}
+                y={pin.y + 3.5}
+                text-anchor={pin.x > 200 ? "end" : "start"}
+                font-size="10"
+                font-weight="600"
+                fill={hasEvents ? "#e5e7eb" : "#6b7280"}
+                font-family="sans-serif"
+                class="pointer-events-none select-none"
+              >
+                {pin.name}
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+    </div>
+
+    <!-- Map Info & Active City Details Panel -->
+    <div class="flex-1 space-y-4 max-w-md">
+      <div class="bg-radar-surface p-4 rounded-xl border border-radar-border">
+        <h3 class="font-mono text-xs font-semibold text-coconut-400 uppercase tracking-wider mb-2">Regional Distribution</h3>
+        <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+          <div class="p-2 rounded bg-neutral-900/60 border border-neutral-800">
+            <span class="text-neutral-300 text-adaptive-muted block text-[10px]">Kochi (Central)</span>
+            <span class="text-base font-bold text-white text-adaptive-title">{cityCounts["kochi"] || 0} events</span>
+          </div>
+          <div class="p-2 rounded bg-neutral-900/60 border border-neutral-800">
+            <span class="text-neutral-300 text-adaptive-muted block text-[10px]">Trivandrum (South)</span>
+            <span class="text-base font-bold text-white text-adaptive-title">{cityCounts["thiruvananthapuram"] || 0} events</span>
+          </div>
+          <div class="p-2 rounded bg-neutral-900/60 border border-neutral-800">
+            <span class="text-neutral-300 text-adaptive-muted block text-[10px]">Kozhikode (North)</span>
+            <span class="text-base font-bold text-white text-adaptive-title">{cityCounts["kozhikode"] || 0} events</span>
+          </div>
+          <div class="p-2 rounded bg-neutral-900/60 border border-neutral-800">
+            <span class="text-neutral-300 text-adaptive-muted block text-[10px]">Thrissur (Cultural)</span>
+            <span class="text-base font-bold text-white text-adaptive-title">{cityCounts["thrissur"] || 0} events</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3 rounded-lg bg-coconut-950/20 border border-coconut-800/30 text-xs text-neutral-300">
+        💡 <strong>Pro Tip:</strong> Click any city pin to instantly filter all hackathons listed below to that exact location.
+      </div>
+    </div>
+  </div>
+</div>
