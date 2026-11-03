@@ -40,10 +40,14 @@
         <span class="hidden md:inline">RSS</span>
       </a>
 
-      <a href="https://github.com/Midhunvvsggsg/hackradar-kerala/tree/main/data/manual.yaml" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 rounded-md text-kasavu-300 hover:text-kasavu-200 hover:bg-kasavu-950/30 transition flex items-center gap-1 border border-kasavu-500/20">
+      <button
+        type="button"
+        class="open-submit-modal-btn px-2.5 py-1.5 rounded-md text-kasavu-300 hover:text-kasavu-200 hover:bg-kasavu-950/30 transition flex items-center gap-1 border border-kasavu-500/20 cursor-pointer"
+        title="Submit an event to HackRadar Kerala"
+      >
         <span>✏️</span>
         <span class="hidden md:inline">Submit Event</span>
-      </a>
+      </button>
 
       <!-- Dark / Light Theme Toggle -->
       <button
@@ -81,11 +85,14 @@
   const lightIcon = themeToggleBtn?.querySelector(".light-icon");
 
   // Check saved theme or system preference
+  const params = new URLSearchParams(window.location.search);
   const isLight =
+    params.get("theme") === "light" ||
     localStorage.theme === "light" ||
     (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: light)").matches);
 
   if (isLight) {
+    document.documentElement.classList.remove("dark");
     document.documentElement.classList.add("light");
     document.body.classList.add("light");
     darkIcon?.classList.add("hidden");
@@ -96,11 +103,13 @@
     const isCurrentlyLight = document.documentElement.classList.contains("light");
     if (isCurrentlyLight) {
       document.documentElement.classList.remove("light");
+      document.documentElement.classList.add("dark");
       document.body.classList.remove("light");
       localStorage.theme = "dark";
       darkIcon?.classList.remove("hidden");
       lightIcon?.classList.add("hidden");
     } else {
+      document.documentElement.classList.remove("dark");
       document.documentElement.classList.add("light");
       document.body.classList.add("light");
       localStorage.theme = "light";

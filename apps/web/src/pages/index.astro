@@ -17,6 +17,7 @@ import FilterBar from "../components/FilterBar.astro";
 import HackathonCard from "../components/HackathonCard.astro";
 import TerminalSection from "../components/TerminalSection.astro";
 import HealthFooter from "../components/HealthFooter.astro";
+import SubmitEventModal from "../components/SubmitEventModal.astro";
 
 // Load static dataset at build time
 let currentDir = process.cwd();
@@ -234,9 +235,9 @@ const jsonLdData = {
           <button id="clearFiltersAction" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-neutral-800 hover:bg-neutral-700 text-white transition border border-neutral-700">
             Reset all filters
           </button>
-          <a href="https://github.com/Midhunvvsggsg/hackradar-kerala/tree/main/data/manual.yaml" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-coconut-600 hover:bg-coconut-500 text-white transition">
-            Submit an Event (+ manual.yaml)
-          </a>
+          <button type="button" class="open-submit-modal-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-coconut-600 hover:bg-coconut-500 text-white transition">
+            Submit an Event (Email / Form)
+          </button>
         </div>
       </div>
 
@@ -253,6 +254,9 @@ const jsonLdData = {
 
     <!-- Source Health & Information Footer -->
     <HealthFooter generatedAt={dataset.generatedAt} sources={dataset.sources} />
+
+    <!-- Submit Hackathon Modal (Emailed directly to midhunv800@gmail.com) -->
+    <SubmitEventModal />
 
     <!-- Client-Side Interactivity Island -->
     <script>
@@ -1084,6 +1088,40 @@ const jsonLdData = {
       if (cliCommandPill) {
         cliCommandPill.addEventListener("click", () => {
           copyTerminalCmd("npx hackradar", copyCliBtn);
+        });
+      }
+
+      // Bonus Micro-interactions: Event Card Spotlight Glow
+      cards.forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty("--mouse-x", `${(e.clientX - rect.left).toFixed(1)}px`);
+          card.style.setProperty("--mouse-y", `${(e.clientY - rect.top).toFixed(1)}px`);
+        });
+        card.addEventListener("pointerleave", () => {
+          card.style.setProperty("--mouse-x", "-1000px");
+          card.style.setProperty("--mouse-y", "-1000px");
+        });
+      });
+
+      // Bonus Micro-interactions: Primary Button Magnetic Pull (max 6px)
+      const motionReducedQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (!motionReducedQuery.matches) {
+        document.querySelectorAll<HTMLElement>(".btn-magnetic").forEach((btn) => {
+          btn.addEventListener("pointermove", (e) => {
+            const rect = btn.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = (e.clientX - cx) * 0.16;
+            const dy = (e.clientY - cy) * 0.16;
+            const dist = Math.hypot(dx, dy);
+            const maxPull = 6;
+            const factor = dist > maxPull ? maxPull / dist : 1;
+            btn.style.transform = `translate3d(${(dx * factor).toFixed(1)}px, ${(dy * factor).toFixed(1)}px, 0)`;
+          });
+          btn.addEventListener("pointerleave", () => {
+            btn.style.transform = "translate3d(0, 0, 0)";
+          });
         });
       }
     </script>

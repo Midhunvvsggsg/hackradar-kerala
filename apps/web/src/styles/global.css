@@ -17,6 +17,11 @@
   --color-hero-from: #0e1715;
   --color-hero-to: #090d0c;
   --color-nav-bg: rgba(9, 13, 12, 0.92);
+
+  /* Radar Pixel Grid Tokens (Dark) */
+  --pixel-base: #14b8a6;
+  --pixel-hot: #34d399;
+  --pixel-gold: #fbbf24;
 }
 
 html.light, body.light {
@@ -32,6 +37,11 @@ html.light, body.light {
   --color-hero-from: #eaf4f2;
   --color-hero-to: #f6f9f8;
   --color-nav-bg: rgba(255, 255, 255, 0.95);
+
+  /* Radar Pixel Grid Tokens (Light) */
+  --pixel-base: #0d9488;
+  --pixel-hot: #059669;
+  --pixel-gold: #d97706;
 }
 
 @layer base {
@@ -184,4 +194,125 @@ html.light, body.light {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Event Card Cursor-Following Spotlight & Pixel Shimmer */
+.hackathon-card {
+  --mouse-x: -1000px;
+  --mouse-y: -1000px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hackathon-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), rgba(20, 184, 166, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+body.light .hackathon-card::before {
+  background: radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), rgba(13, 148, 136, 0.08), transparent 70%);
+}
+
+.hackathon-card:hover::before {
+  opacity: 1;
+}
+
+@keyframes pixel-border-shimmer {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+.hackathon-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(20, 184, 166, 0.3) 25%,
+    rgba(251, 191, 36, 0.45) 50%,
+    rgba(20, 184, 166, 0.3) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+body.light .hackathon-card::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(13, 148, 136, 0.3) 25%,
+    rgba(217, 119, 6, 0.45) 50%,
+    rgba(13, 148, 136, 0.3) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+}
+
+.hackathon-card:hover::after {
+  opacity: 1;
+  animation: pixel-border-shimmer 3.5s linear infinite;
+}
+
+/* Primary Magnetic Buttons */
+.btn-magnetic {
+  display: inline-flex;
+  transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+/* Radar Ping Burst Particle */
+@keyframes ping-particle-fly {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--burst-dx), var(--burst-dy)) scale(0.3);
+  }
+}
+
+.ping-burst-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 1px;
+  background-color: var(--pixel-gold);
+  box-shadow: 0 0 6px var(--pixel-gold);
+  pointer-events: none;
+  animation: ping-particle-fly 0.45s ease-out forwards;
+  z-index: 30;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hackathon-card::after {
+    animation: none !important;
+  }
+  .btn-magnetic {
+    transform: none !important;
+  }
+  .ping-burst-particle {
+    display: none !important;
+  }
 }
