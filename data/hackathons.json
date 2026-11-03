@@ -1,35 +1,35 @@
 {
-  "generatedAt": "2026-11-03T08:38:45.012Z",
+  "generatedAt": "2026-11-03T18:56:39.169Z",
   "timezone": "Asia/Kolkata",
-  "totalEvents": 8,
+  "totalEvents": 9,
   "sources": [
     {
       "id": "manual",
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
       "count": 7,
-      "lastRun": "2026-11-03T08:38:45.012Z"
+      "lastRun": "2026-11-03T18:56:39.169Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
       "count": 3,
-      "lastRun": "2026-11-03T08:38:45.012Z"
+      "lastRun": "2026-11-03T18:56:39.169Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
       "count": 9,
-      "lastRun": "2026-11-03T08:38:45.012Z"
+      "lastRun": "2026-11-03T18:56:39.169Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
-      "count": 1,
-      "lastRun": "2026-11-03T08:38:45.012Z"
+      "count": 12,
+      "lastRun": "2026-11-03T18:56:39.169Z"
     }
   ],
   "events": [
@@ -63,7 +63,7 @@
       ],
       "eligibility": "Open to all developers",
       "teamSize": "1-3 members",
-      "lastSeenAt": "2026-11-03T08:38:45.022Z",
+      "lastSeenAt": "2026-11-03T18:56:39.179Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -93,7 +93,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/0dab52b6085941a6b366b2425310d8b8/assets/cover/968.jpeg",
-      "lastSeenAt": "2026-11-03T08:38:45.775Z",
+      "lastSeenAt": "2026-11-03T18:56:41.714Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -128,7 +128,7 @@
       "eligibility": "Open to all college students",
       "teamSize": "2-4 members",
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/953.png",
-      "lastSeenAt": "2026-11-03T08:38:45.022Z",
+      "lastSeenAt": "2026-11-03T18:56:39.179Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -162,7 +162,7 @@
       ],
       "eligibility": "Open to all students and early developers",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-03T08:38:45.022Z",
+      "lastSeenAt": "2026-11-03T18:56:39.179Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -196,7 +196,7 @@
       ],
       "eligibility": "Open to all developers and students in Kerala",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-03T08:38:45.022Z",
+      "lastSeenAt": "2026-11-03T18:56:39.179Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -230,7 +230,7 @@
       ],
       "eligibility": "Kerala-based startups, students, and professionals",
       "teamSize": "2-5 members",
-      "lastSeenAt": "2026-11-03T08:38:45.022Z",
+      "lastSeenAt": "2026-11-03T18:56:39.179Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -265,8 +265,34 @@
       ],
       "eligibility": "Engineering students across India",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-03T08:38:45.022Z",
+      "lastSeenAt": "2026-11-03T18:56:39.179Z",
       "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "unstop-1793341",
+      "title": "DoomForge",
+      "source": "unstop",
+      "sources": [
+        {
+          "name": "unstop",
+          "url": "https://unstop.com/hackathons/doomforge-vellore-institute-of-technology-vit-chennai-1793341"
+        }
+      ],
+      "url": "https://unstop.com/hackathons/doomforge-vellore-institute-of-technology-vit-chennai-1793341",
+      "organizer": "Vellore Institute of Technology (VIT), Chennai",
+      "mode": "online",
+      "country": "India",
+      "registrationDeadline": "2026-12-06T18:29:00.000Z",
+      "startDate": null,
+      "endDate": "2026-12-06T18:29:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "themes": [],
+      "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/6aea1b5c57504_download__10_.png",
+      "lastSeenAt": "2026-11-03T18:56:42.861Z",
+      "isNearby": true,
       "deadlineUnknown": false
     },
     {
@@ -300,7 +326,7 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-03T08:38:45.022Z",
+      "lastSeenAt": "2026-11-03T18:56:39.179Z",
       "isNearby": false,
       "deadlineUnknown": false
     }
