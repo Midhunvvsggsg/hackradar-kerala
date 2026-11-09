@@ -1,35 +1,35 @@
 {
-  "generatedAt": "2026-11-09T04:04:14.167Z",
+  "generatedAt": "2026-11-09T14:54:15.743Z",
   "timezone": "Asia/Kolkata",
-  "totalEvents": 7,
+  "totalEvents": 8,
   "sources": [
     {
       "id": "manual",
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
       "count": 6,
-      "lastRun": "2026-11-09T04:04:14.167Z"
+      "lastRun": "2026-11-09T14:54:15.743Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
-      "count": 3,
-      "lastRun": "2026-11-09T04:04:14.167Z"
+      "count": 4,
+      "lastRun": "2026-11-09T14:54:15.743Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
       "count": 8,
-      "lastRun": "2026-11-09T04:04:14.167Z"
+      "lastRun": "2026-11-09T14:54:15.743Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
       "count": 15,
-      "lastRun": "2026-11-09T04:04:14.167Z"
+      "lastRun": "2026-11-09T14:54:15.743Z"
     }
   ],
   "events": [
@@ -59,7 +59,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/0dab52b6085941a6b366b2425310d8b8/assets/cover/968.jpeg",
-      "lastSeenAt": "2026-11-09T04:04:16.547Z",
+      "lastSeenAt": "2026-11-09T14:54:18.182Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -94,7 +94,7 @@
       "eligibility": "Open to all college students",
       "teamSize": "2-4 members",
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/953.png",
-      "lastSeenAt": "2026-11-09T04:04:14.175Z",
+      "lastSeenAt": "2026-11-09T14:54:15.752Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -128,7 +128,7 @@
       ],
       "eligibility": "Open to all students and early developers",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-09T04:04:14.175Z",
+      "lastSeenAt": "2026-11-09T14:54:15.752Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -162,7 +162,7 @@
       ],
       "eligibility": "Open to all developers and students in Kerala",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-09T04:04:14.175Z",
+      "lastSeenAt": "2026-11-09T14:54:15.752Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -196,7 +196,7 @@
       ],
       "eligibility": "Kerala-based startups, students, and professionals",
       "teamSize": "2-5 members",
-      "lastSeenAt": "2026-11-09T04:04:14.175Z",
+      "lastSeenAt": "2026-11-09T14:54:15.752Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -231,8 +231,38 @@
       ],
       "eligibility": "Engineering students across India",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-09T04:04:14.175Z",
+      "lastSeenAt": "2026-11-09T14:54:15.752Z",
       "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "devfolio-2689d878c21e4cf1a61a50f5104587f0",
+      "title": "Clash of Commits",
+      "source": "devfolio",
+      "sources": [
+        {
+          "name": "devfolio",
+          "url": "https://clash-of-commits.devfolio.co"
+        }
+      ],
+      "url": "https://clash-of-commits.devfolio.co",
+      "organizer": "clash-of-commits",
+      "mode": "offline",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "registrationDeadline": "2026-11-30T18:29:00.000Z",
+      "startDate": "2026-12-04T04:30:00.000Z",
+      "endDate": "2026-12-05T12:30:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "themes": [
+        "No Restrictions"
+      ],
+      "imageUrl": "https://assets.devfolio.co/hackathons/2689d878c21e4cf1a61a50f5104587f0/assets/cover/916.png",
+      "lastSeenAt": "2026-11-09T14:54:18.182Z",
+      "isNearby": true,
       "deadlineUnknown": false
     },
     {
@@ -266,7 +296,7 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-09T04:04:14.175Z",
+      "lastSeenAt": "2026-11-09T14:54:15.752Z",
       "isNearby": false,
       "deadlineUnknown": false
     }
