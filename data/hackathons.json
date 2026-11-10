@@ -1,72 +1,38 @@
 {
-  "generatedAt": "2026-11-10T14:07:18.420Z",
+  "generatedAt": "2026-11-10T22:43:05.496Z",
   "timezone": "Asia/Kolkata",
-  "totalEvents": 8,
+  "totalEvents": 7,
   "sources": [
     {
       "id": "manual",
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
-      "count": 6,
-      "lastRun": "2026-11-10T14:07:18.420Z"
+      "count": 5,
+      "lastRun": "2026-11-10T22:43:05.496Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
       "count": 3,
-      "lastRun": "2026-11-10T14:07:18.420Z"
+      "lastRun": "2026-11-10T22:43:05.496Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
       "count": 9,
-      "lastRun": "2026-11-10T14:07:18.420Z"
+      "lastRun": "2026-11-10T22:43:05.496Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
       "count": 15,
-      "lastRun": "2026-11-10T14:07:18.420Z"
+      "lastRun": "2026-11-10T22:43:05.496Z"
     }
   ],
   "events": [
-    {
-      "id": "manual-haxfinity-2026",
-      "title": "Haxfinity",
-      "source": "manual",
-      "sources": [
-        {
-          "name": "manual",
-          "url": "https://haxfinity.devfolio.co"
-        }
-      ],
-      "url": "https://haxfinity.devfolio.co",
-      "organizer": "Amal College of Advanced Studies, Nilambur",
-      "mode": "offline",
-      "city": "Myladi",
-      "state": "Kerala",
-      "country": "India",
-      "registrationDeadline": "2026-11-10T23:59:00+05:30",
-      "startDate": "2026-12-12T10:30:00+05:30",
-      "endDate": "2026-12-13T10:30:00+05:30",
-      "fee": {
-        "type": "free"
-      },
-      "prize": "₹50,000",
-      "themes": [
-        "FinTech",
-        "AI",
-        "HealthTech"
-      ],
-      "eligibility": "Open to all college students",
-      "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-10T14:07:18.437Z",
-      "isNearby": false,
-      "deadlineUnknown": false
-    },
     {
       "id": "manual-tinkerhack-2026",
       "title": "TinkerHack 2026",
@@ -97,7 +63,7 @@
       ],
       "eligibility": "Open to all students and early developers",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-10T14:07:18.437Z",
+      "lastSeenAt": "2026-11-10T22:43:05.513Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -131,7 +97,7 @@
       ],
       "eligibility": "Open to all developers and students in Kerala",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-10T14:07:18.437Z",
+      "lastSeenAt": "2026-11-10T22:43:05.513Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -165,7 +131,7 @@
       ],
       "eligibility": "Kerala-based startups, students, and professionals",
       "teamSize": "2-5 members",
-      "lastSeenAt": "2026-11-10T14:07:18.437Z",
+      "lastSeenAt": "2026-11-10T22:43:05.513Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -200,7 +166,7 @@
       ],
       "eligibility": "Engineering students across India",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-10T14:07:18.437Z",
+      "lastSeenAt": "2026-11-10T22:43:05.513Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -230,7 +196,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/2689d878c21e4cf1a61a50f5104587f0/assets/cover/916.png",
-      "lastSeenAt": "2026-11-10T14:07:20.883Z",
+      "lastSeenAt": "2026-11-10T22:43:07.753Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -262,7 +228,7 @@
         "HealthTech"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/599.png",
-      "lastSeenAt": "2026-11-10T14:07:20.883Z",
+      "lastSeenAt": "2026-11-10T22:43:07.753Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -297,7 +263,7 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-10T14:07:18.437Z",
+      "lastSeenAt": "2026-11-10T22:43:05.513Z",
       "isNearby": false,
       "deadlineUnknown": false
     }
