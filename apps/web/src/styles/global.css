@@ -180,7 +180,9 @@ html.light, body.light {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .radar-sweep-beam,
+  .radar-sweep-beam {
+    animation: radar-sweep 12s linear infinite;
+  }
   .animate-pulse,
   .animate-ping {
     animation: none !important;
