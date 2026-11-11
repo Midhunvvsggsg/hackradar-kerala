@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T22:43:05.496Z",
+  "generatedAt": "2026-11-11T04:09:02.559Z",
   "timezone": "Asia/Kolkata",
   "totalEvents": 7,
   "sources": [
@@ -8,28 +8,28 @@
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
       "count": 5,
-      "lastRun": "2026-11-10T22:43:05.496Z"
+      "lastRun": "2026-11-11T04:09:02.559Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
       "count": 3,
-      "lastRun": "2026-11-10T22:43:05.496Z"
+      "lastRun": "2026-11-11T04:09:02.559Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
       "count": 9,
-      "lastRun": "2026-11-10T22:43:05.496Z"
+      "lastRun": "2026-11-11T04:09:02.559Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
       "count": 15,
-      "lastRun": "2026-11-10T22:43:05.496Z"
+      "lastRun": "2026-11-11T04:09:02.559Z"
     }
   ],
   "events": [
@@ -63,7 +63,7 @@
       ],
       "eligibility": "Open to all students and early developers",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-10T22:43:05.513Z",
+      "lastSeenAt": "2026-11-11T04:09:02.575Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -97,7 +97,7 @@
       ],
       "eligibility": "Open to all developers and students in Kerala",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-10T22:43:05.513Z",
+      "lastSeenAt": "2026-11-11T04:09:02.575Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -131,7 +131,7 @@
       ],
       "eligibility": "Kerala-based startups, students, and professionals",
       "teamSize": "2-5 members",
-      "lastSeenAt": "2026-11-10T22:43:05.513Z",
+      "lastSeenAt": "2026-11-11T04:09:02.575Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -166,7 +166,7 @@
       ],
       "eligibility": "Engineering students across India",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-10T22:43:05.513Z",
+      "lastSeenAt": "2026-11-11T04:09:02.575Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -196,7 +196,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/2689d878c21e4cf1a61a50f5104587f0/assets/cover/916.png",
-      "lastSeenAt": "2026-11-10T22:43:07.753Z",
+      "lastSeenAt": "2026-11-11T04:09:04.167Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -228,7 +228,7 @@
         "HealthTech"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/599.png",
-      "lastSeenAt": "2026-11-10T22:43:07.753Z",
+      "lastSeenAt": "2026-11-11T04:09:04.167Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -263,7 +263,7 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-10T22:43:05.513Z",
+      "lastSeenAt": "2026-11-11T04:09:02.575Z",
       "isNearby": false,
       "deadlineUnknown": false
     }
