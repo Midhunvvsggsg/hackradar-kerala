@@ -13,10 +13,12 @@ import { SourceAdapter } from "../src/adapters/types.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe("Source Adapters & Normalizers", () => {
+  const mockNow = new Date("2026-11-02T10:00:00+05:30");
+
   it("normalizes manual.yaml correctly", async () => {
     const adapter = new ManualAdapter();
     const raw = await adapter.fetch();
-    const events = adapter.normalize(raw);
+    const events = adapter.normalize(raw, mockNow);
 
     expect(events.length).toBeGreaterThan(0);
     const kochiEvent = events.find((e) => e.title.includes("TinkerHack"));
@@ -35,7 +37,7 @@ describe("Source Adapters & Normalizers", () => {
     const fixturePath = path.join(__dirname, "fixtures/devfolio.json");
     const raw = JSON.parse(fs.readFileSync(fixturePath, "utf-8"));
     const adapter = new DevfolioAdapter();
-    const events = adapter.normalize(raw);
+    const events = adapter.normalize(raw, mockNow);
 
     expect(events.length).toBe(2);
     const kochi = events.find((e) => e.title === "Kochi Buildathon");
@@ -64,7 +66,7 @@ describe("Source Adapters & Normalizers", () => {
         },
       ],
     };
-    const pastEvents = adapter.normalize(pastFixture);
+    const pastEvents = adapter.normalize(pastFixture, mockNow);
     expect(pastEvents.length).toBe(0);
   });
 
@@ -72,7 +74,7 @@ describe("Source Adapters & Normalizers", () => {
     const fixturePath = path.join(__dirname, "fixtures/devpost.json");
     const raw = JSON.parse(fs.readFileSync(fixturePath, "utf-8"));
     const adapter = new DevpostAdapter();
-    const events = adapter.normalize(raw);
+    const events = adapter.normalize(raw, mockNow);
 
     expect(events.length).toBe(1);
     expect(events[0].title).toBe("Global AI Challenge 2026");
@@ -84,7 +86,7 @@ describe("Source Adapters & Normalizers", () => {
     const fixturePath = path.join(__dirname, "fixtures/unstop.json");
     const raw = JSON.parse(fs.readFileSync(fixturePath, "utf-8"));
     const adapter = new UnstopAdapter();
-    const events = adapter.normalize(raw);
+    const events = adapter.normalize(raw, mockNow);
 
     expect(events.length).toBe(1);
     expect(events[0].title).toBe("National Code Sprint");

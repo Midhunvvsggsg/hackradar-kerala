@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T14:28:06.735Z",
+  "generatedAt": "2026-11-16T14:37:36.587Z",
   "timezone": "Asia/Kolkata",
   "totalEvents": 8,
   "sources": [
@@ -7,66 +7,32 @@
       "id": "manual",
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
-      "count": 5,
-      "lastRun": "2026-11-12T14:28:06.735Z"
+      "count": 4,
+      "lastRun": "2026-11-16T14:37:36.587Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
-      "count": 3,
-      "lastRun": "2026-11-12T14:28:06.735Z"
+      "count": 6,
+      "lastRun": "2026-11-16T14:37:36.587Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
-      "count": 7,
-      "lastRun": "2026-11-12T14:28:06.735Z"
+      "count": 8,
+      "lastRun": "2026-11-16T14:37:36.587Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
       "count": 15,
-      "lastRun": "2026-11-12T14:28:06.735Z"
+      "lastRun": "2026-11-16T14:37:36.587Z"
     }
   ],
   "events": [
-    {
-      "id": "manual-tinkerhack-2026",
-      "title": "TinkerHack 2026",
-      "source": "manual",
-      "sources": [
-        {
-          "name": "manual",
-          "url": "https://tinkerhub.org/events"
-        }
-      ],
-      "url": "https://tinkerhub.org/events",
-      "organizer": "TinkerHub Foundation",
-      "mode": "hybrid",
-      "city": "Kochi",
-      "state": "Kerala",
-      "country": "India",
-      "registrationDeadline": "2026-11-12T23:59:59+05:30",
-      "startDate": "2026-11-20T09:00:00+05:30",
-      "endDate": "2026-11-21T18:00:00+05:30",
-      "fee": {
-        "type": "free"
-      },
-      "prize": "₹1,50,000",
-      "themes": [
-        "Open Source",
-        "Generative AI",
-        "Web3"
-      ],
-      "eligibility": "Open to all students and early developers",
-      "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-12T14:28:06.747Z",
-      "isNearby": false,
-      "deadlineUnknown": false
-    },
     {
       "id": "manual-devfest-kochi",
       "title": "DevFest Kochi Hackathon 2026",
@@ -97,7 +63,7 @@
       ],
       "eligibility": "Open to all developers and students in Kerala",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-12T14:28:06.747Z",
+      "lastSeenAt": "2026-11-16T14:37:36.600Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -131,7 +97,7 @@
       ],
       "eligibility": "Kerala-based startups, students, and professionals",
       "teamSize": "2-5 members",
-      "lastSeenAt": "2026-11-12T14:28:06.747Z",
+      "lastSeenAt": "2026-11-16T14:37:36.600Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -166,7 +132,7 @@
       ],
       "eligibility": "Engineering students across India",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-12T14:28:06.747Z",
+      "lastSeenAt": "2026-11-16T14:37:36.600Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -196,8 +162,38 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/2689d878c21e4cf1a61a50f5104587f0/assets/cover/916.png",
-      "lastSeenAt": "2026-11-12T14:28:08.070Z",
+      "lastSeenAt": "2026-11-16T14:37:37.784Z",
       "isNearby": true,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "devfolio-0c74c99ebe4d4bc8b1b9972451f350ca",
+      "title": "Hack For Tomorrow 2026",
+      "source": "devfolio",
+      "sources": [
+        {
+          "name": "devfolio",
+          "url": "https://hft2026.devfolio.co"
+        }
+      ],
+      "url": "https://hft2026.devfolio.co",
+      "organizer": "hft2026",
+      "mode": "offline",
+      "city": "Kochi",
+      "state": "Keralam",
+      "country": "India",
+      "registrationDeadline": "2026-12-05T18:29:00.000Z",
+      "startDate": "2027-01-02T04:30:00.000Z",
+      "endDate": "2027-01-03T04:30:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "themes": [
+        "No Restrictions"
+      ],
+      "imageUrl": "https://assets.devfolio.co/hackathons/0c74c99ebe4d4bc8b1b9972451f350ca/assets/cover/21.jpeg",
+      "lastSeenAt": "2026-11-16T14:37:37.784Z",
+      "isNearby": false,
       "deadlineUnknown": false
     },
     {
@@ -228,35 +224,8 @@
         "HealthTech"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/599.png",
-      "lastSeenAt": "2026-11-12T14:28:08.070Z",
+      "lastSeenAt": "2026-11-16T14:37:37.784Z",
       "isNearby": false,
-      "deadlineUnknown": false
-    },
-    {
-      "id": "unstop-1806122",
-      "title": "Defy'27",
-      "source": "unstop",
-      "sources": [
-        {
-          "name": "unstop",
-          "url": "https://unstop.com/hackathons/defy27-vellore-institute-of-technology-vit-chennai-1806122"
-        }
-      ],
-      "url": "https://unstop.com/hackathons/defy27-vellore-institute-of-technology-vit-chennai-1806122",
-      "organizer": "Vellore Institute of Technology (VIT), Chennai",
-      "mode": "online",
-      "country": "India",
-      "registrationDeadline": "2026-12-14T18:29:00.000Z",
-      "startDate": null,
-      "endDate": "2026-12-14T18:29:00.000Z",
-      "fee": {
-        "type": "free"
-      },
-      "prize": "₹1,00,000",
-      "themes": [],
-      "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/uploadedManual-6af4c3e632fd9_02_event-backsplash_300x300_4x.png",
-      "lastSeenAt": "2026-11-12T14:28:09.482Z",
-      "isNearby": true,
       "deadlineUnknown": false
     },
     {
@@ -290,8 +259,38 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-12T14:28:06.747Z",
+      "lastSeenAt": "2026-11-16T14:37:36.600Z",
       "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "devfolio-6a9a810d11934e278fe5a13409791cde",
+      "title": "Touch Some Grass",
+      "source": "devfolio",
+      "sources": [
+        {
+          "name": "devfolio",
+          "url": "https://touch-some-grass.devfolio.co"
+        }
+      ],
+      "url": "https://touch-some-grass.devfolio.co",
+      "organizer": "touch-some-grass",
+      "mode": "offline",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "registrationDeadline": "2027-03-27T18:29:00.000Z",
+      "startDate": "2027-03-28T18:30:00.000Z",
+      "endDate": "2027-03-30T18:29:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "themes": [
+        "No Restrictions"
+      ],
+      "imageUrl": "https://assets.devfolio.co/hackathons/6a9a810d11934e278fe5a13409791cde/assets/cover/534.png",
+      "lastSeenAt": "2026-11-16T14:37:37.784Z",
+      "isNearby": true,
       "deadlineUnknown": false
     }
   ]
