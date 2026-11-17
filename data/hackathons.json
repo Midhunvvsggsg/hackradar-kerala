@@ -1,72 +1,38 @@
 {
-  "generatedAt": "2026-11-17T01:26:26.346Z",
+  "generatedAt": "2026-11-17T15:21:26.382Z",
   "timezone": "Asia/Kolkata",
-  "totalEvents": 7,
+  "totalEvents": 9,
   "sources": [
     {
       "id": "manual",
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
-      "count": 3,
-      "lastRun": "2026-11-17T01:26:26.346Z"
+      "count": 2,
+      "lastRun": "2026-11-17T15:21:26.382Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
-      "count": 6,
-      "lastRun": "2026-11-17T01:26:26.346Z"
+      "count": 9,
+      "lastRun": "2026-11-17T15:21:26.382Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
       "count": 8,
-      "lastRun": "2026-11-17T01:26:26.346Z"
+      "lastRun": "2026-11-17T15:21:26.382Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
       "count": 15,
-      "lastRun": "2026-11-17T01:26:26.346Z"
+      "lastRun": "2026-11-17T15:21:26.382Z"
     }
   ],
   "events": [
-    {
-      "id": "manual-ksum-innovation-challenge",
-      "title": "KSUM Innovation Hackathon",
-      "source": "manual",
-      "sources": [
-        {
-          "name": "manual",
-          "url": "https://startupmission.kerala.gov.in/"
-        }
-      ],
-      "url": "https://startupmission.kerala.gov.in/",
-      "organizer": "Kerala Startup Mission",
-      "mode": "hybrid",
-      "city": "Kochi",
-      "state": "Kerala",
-      "country": "India",
-      "registrationDeadline": "2026-11-17T18:00:00+05:30",
-      "startDate": "2026-11-25T10:00:00+05:30",
-      "endDate": "2026-11-26T18:00:00+05:30",
-      "fee": {
-        "type": "free"
-      },
-      "prize": "₹5,00,000 Grant",
-      "themes": [
-        "GovTech",
-        "Tourism Tech",
-        "AI Solutions"
-      ],
-      "eligibility": "Kerala-based startups, students, and professionals",
-      "teamSize": "2-5 members",
-      "lastSeenAt": "2026-11-17T01:26:26.364Z",
-      "isNearby": false,
-      "deadlineUnknown": false
-    },
     {
       "id": "manual-tathva-hack-nitc",
       "title": "Tathva Hackathon 2026",
@@ -98,7 +64,37 @@
       ],
       "eligibility": "Engineering students across India",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-17T01:26:26.364Z",
+      "lastSeenAt": "2026-11-17T15:21:26.398Z",
+      "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "devfolio-931ca9149c46417bb0526ce1eb44b920",
+      "title": "MakerSpark",
+      "source": "devfolio",
+      "sources": [
+        {
+          "name": "devfolio",
+          "url": "https://makerspark.devfolio.co"
+        }
+      ],
+      "url": "https://makerspark.devfolio.co",
+      "organizer": "makerspark",
+      "mode": "offline",
+      "city": "Thiruvananthapuram",
+      "state": "Keralam",
+      "country": "India",
+      "registrationDeadline": "2026-11-24T18:29:00.000Z",
+      "startDate": "2026-12-09T03:30:00.000Z",
+      "endDate": "2026-12-09T11:30:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "themes": [
+        "No Restrictions"
+      ],
+      "imageUrl": "https://assets.devfolio.co/hackathons/931ca9149c46417bb0526ce1eb44b920/assets/cover/347.png",
+      "lastSeenAt": "2026-11-17T15:21:28.505Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -128,7 +124,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/2689d878c21e4cf1a61a50f5104587f0/assets/cover/916.png",
-      "lastSeenAt": "2026-11-17T01:26:27.850Z",
+      "lastSeenAt": "2026-11-17T15:21:28.505Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -158,7 +154,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/0c74c99ebe4d4bc8b1b9972451f350ca/assets/cover/21.jpeg",
-      "lastSeenAt": "2026-11-17T01:26:27.850Z",
+      "lastSeenAt": "2026-11-17T15:21:28.505Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -190,8 +186,68 @@
         "HealthTech"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/599.png",
-      "lastSeenAt": "2026-11-17T01:26:27.850Z",
+      "lastSeenAt": "2026-11-17T15:21:28.505Z",
       "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "devfolio-cd4f5f7185d34287a43a12910978e19d",
+      "title": "HACK2027",
+      "source": "devfolio",
+      "sources": [
+        {
+          "name": "devfolio",
+          "url": "https://hack2027.devfolio.co"
+        }
+      ],
+      "url": "https://hack2027.devfolio.co",
+      "organizer": "hack2027",
+      "mode": "offline",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "registrationDeadline": "2026-12-31T18:30:00.000Z",
+      "startDate": "2027-02-20T04:30:00.000Z",
+      "endDate": "2027-02-21T04:30:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "themes": [
+        "No Restrictions"
+      ],
+      "imageUrl": "https://assets.devfolio.co/hackathons/cd4f5f7185d34287a43a12910978e19d/assets/cover/233.jpeg",
+      "lastSeenAt": "2026-11-17T15:21:28.505Z",
+      "isNearby": true,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "devfolio-4470b13a397a413ca598d4413820eee5",
+      "title": "Texus 2027",
+      "source": "devfolio",
+      "sources": [
+        {
+          "name": "devfolio",
+          "url": "https://texus27.devfolio.co"
+        }
+      ],
+      "url": "https://texus27.devfolio.co",
+      "organizer": "texus27",
+      "mode": "offline",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "registrationDeadline": "2027-01-14T18:30:00.000Z",
+      "startDate": "2027-02-13T04:00:00.000Z",
+      "endDate": "2027-02-14T11:00:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "themes": [
+        "No Restrictions"
+      ],
+      "imageUrl": "https://assets.devfolio.co/hackathons/4470b13a397a413ca598d4413820eee5/assets/cover/323.png",
+      "lastSeenAt": "2026-11-17T15:21:28.505Z",
+      "isNearby": true,
       "deadlineUnknown": false
     },
     {
@@ -225,7 +281,7 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-17T01:26:26.364Z",
+      "lastSeenAt": "2026-11-17T15:21:26.398Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -255,7 +311,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/6a9a810d11934e278fe5a13409791cde/assets/cover/534.png",
-      "lastSeenAt": "2026-11-17T01:26:27.850Z",
+      "lastSeenAt": "2026-11-17T15:21:28.505Z",
       "isNearby": true,
       "deadlineUnknown": false
     }
