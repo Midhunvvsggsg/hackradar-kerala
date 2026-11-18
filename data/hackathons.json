@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-18T14:56:22.633Z",
+  "generatedAt": "2026-11-18T23:47:30.556Z",
   "timezone": "Asia/Kolkata",
   "totalEvents": 10,
   "sources": [
@@ -8,28 +8,28 @@
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
       "count": 2,
-      "lastRun": "2026-11-18T14:56:22.633Z"
+      "lastRun": "2026-11-18T23:47:30.556Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
       "count": 9,
-      "lastRun": "2026-11-18T14:56:22.633Z"
+      "lastRun": "2026-11-18T23:47:30.556Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
-      "count": 7,
-      "lastRun": "2026-11-18T14:56:22.633Z"
+      "count": 8,
+      "lastRun": "2026-11-18T23:47:30.556Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
-      "count": 15,
-      "lastRun": "2026-11-18T14:56:22.633Z"
+      "count": 14,
+      "lastRun": "2026-11-18T23:47:30.556Z"
     }
   ],
   "events": [
@@ -64,7 +64,7 @@
       ],
       "eligibility": "Engineering students across India",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-18T14:56:22.648Z",
+      "lastSeenAt": "2026-11-18T23:47:30.572Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -94,7 +94,7 @@
         "Hardware"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/931ca9149c46417bb0526ce1eb44b920/assets/cover/347.png",
-      "lastSeenAt": "2026-11-18T14:56:24.474Z",
+      "lastSeenAt": "2026-11-18T23:47:33.104Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -124,7 +124,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/2689d878c21e4cf1a61a50f5104587f0/assets/cover/916.png",
-      "lastSeenAt": "2026-11-18T14:56:24.474Z",
+      "lastSeenAt": "2026-11-18T23:47:33.104Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -151,7 +151,7 @@
       "prize": "₹10,000",
       "themes": [],
       "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/uploadedManual-6afd32f931477_file_1.jpg",
-      "lastSeenAt": "2026-11-18T14:56:25.799Z",
+      "lastSeenAt": "2026-11-18T23:47:34.649Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -181,7 +181,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/0c74c99ebe4d4bc8b1b9972451f350ca/assets/cover/21.jpeg",
-      "lastSeenAt": "2026-11-18T14:56:24.474Z",
+      "lastSeenAt": "2026-11-18T23:47:33.104Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -213,7 +213,7 @@
         "HealthTech"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/599.png",
-      "lastSeenAt": "2026-11-18T14:56:24.474Z",
+      "lastSeenAt": "2026-11-18T23:47:33.104Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -243,7 +243,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/cd4f5f7185d34287a43a12910978e19d/assets/cover/233.jpeg",
-      "lastSeenAt": "2026-11-18T14:56:24.474Z",
+      "lastSeenAt": "2026-11-18T23:47:33.104Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -273,7 +273,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/4470b13a397a413ca598d4413820eee5/assets/cover/323.png",
-      "lastSeenAt": "2026-11-18T14:56:24.474Z",
+      "lastSeenAt": "2026-11-18T23:47:33.104Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -308,7 +308,7 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-18T14:56:22.648Z",
+      "lastSeenAt": "2026-11-18T23:47:30.572Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -338,7 +338,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/6a9a810d11934e278fe5a13409791cde/assets/cover/534.png",
-      "lastSeenAt": "2026-11-18T14:56:24.474Z",
+      "lastSeenAt": "2026-11-18T23:47:33.104Z",
       "isNearby": true,
       "deadlineUnknown": false
     }
