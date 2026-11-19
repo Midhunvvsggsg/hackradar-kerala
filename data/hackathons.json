@@ -1,35 +1,35 @@
 {
-  "generatedAt": "2026-11-18T23:47:30.556Z",
+  "generatedAt": "2026-11-19T05:29:29.710Z",
   "timezone": "Asia/Kolkata",
-  "totalEvents": 10,
+  "totalEvents": 12,
   "sources": [
     {
       "id": "manual",
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
       "count": 2,
-      "lastRun": "2026-11-18T23:47:30.556Z"
+      "lastRun": "2026-11-19T05:29:29.710Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
       "count": 9,
-      "lastRun": "2026-11-18T23:47:30.556Z"
+      "lastRun": "2026-11-19T05:29:29.710Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
       "count": 8,
-      "lastRun": "2026-11-18T23:47:30.556Z"
+      "lastRun": "2026-11-19T05:29:29.710Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
-      "count": 14,
-      "lastRun": "2026-11-18T23:47:30.556Z"
+      "count": 15,
+      "lastRun": "2026-11-19T05:29:29.710Z"
     }
   ],
   "events": [
@@ -64,7 +64,7 @@
       ],
       "eligibility": "Engineering students across India",
       "teamSize": "2-4 members",
-      "lastSeenAt": "2026-11-18T23:47:30.572Z",
+      "lastSeenAt": "2026-11-19T05:29:29.724Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -84,7 +84,7 @@
       "city": "Thiruvananthapuram",
       "state": "Keralam",
       "country": "India",
-      "registrationDeadline": "2026-11-24T18:29:00.000Z",
+      "registrationDeadline": "2026-11-25T18:29:00.000Z",
       "startDate": "2026-12-09T03:30:00.000Z",
       "endDate": "2026-12-09T11:30:00.000Z",
       "fee": {
@@ -94,7 +94,7 @@
         "Hardware"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/931ca9149c46417bb0526ce1eb44b920/assets/cover/347.png",
-      "lastSeenAt": "2026-11-18T23:47:33.104Z",
+      "lastSeenAt": "2026-11-19T05:29:32.011Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -124,7 +124,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/2689d878c21e4cf1a61a50f5104587f0/assets/cover/916.png",
-      "lastSeenAt": "2026-11-18T23:47:33.104Z",
+      "lastSeenAt": "2026-11-19T05:29:32.011Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -151,7 +151,34 @@
       "prize": "₹10,000",
       "themes": [],
       "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/uploadedManual-6afd32f931477_file_1.jpg",
-      "lastSeenAt": "2026-11-18T23:47:34.649Z",
+      "lastSeenAt": "2026-11-19T05:29:33.176Z",
+      "isNearby": true,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "unstop-1814270",
+      "title": "SustainIQ",
+      "source": "unstop",
+      "sources": [
+        {
+          "name": "unstop",
+          "url": "https://unstop.com/hackathons/sustainiq-vidyavardhaka-college-of-engineering-mysore-1814270"
+        }
+      ],
+      "url": "https://unstop.com/hackathons/sustainiq-vidyavardhaka-college-of-engineering-mysore-1814270",
+      "organizer": "Vidyavardhaka College of Engineering, Mysore",
+      "mode": "online",
+      "country": "India",
+      "registrationDeadline": "2026-12-04T07:30:00.000Z",
+      "startDate": null,
+      "endDate": "2026-12-04T07:30:00.000Z",
+      "fee": {
+        "type": "paid"
+      },
+      "prize": "₹7,000",
+      "themes": [],
+      "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/uploadedManual-6afb3a26f2f04_sustainiq_logo-removebg-preview_1.png",
+      "lastSeenAt": "2026-11-19T05:29:33.176Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -181,7 +208,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/0c74c99ebe4d4bc8b1b9972451f350ca/assets/cover/21.jpeg",
-      "lastSeenAt": "2026-11-18T23:47:33.104Z",
+      "lastSeenAt": "2026-11-19T05:29:32.011Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -213,7 +240,7 @@
         "HealthTech"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/599.png",
-      "lastSeenAt": "2026-11-18T23:47:33.104Z",
+      "lastSeenAt": "2026-11-19T05:29:32.011Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -243,7 +270,34 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/cd4f5f7185d34287a43a12910978e19d/assets/cover/233.jpeg",
-      "lastSeenAt": "2026-11-18T23:47:33.104Z",
+      "lastSeenAt": "2026-11-19T05:29:32.011Z",
+      "isNearby": true,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "unstop-1782995",
+      "title": "CPP - Competitive Programming Potpourri",
+      "source": "unstop",
+      "sources": [
+        {
+          "name": "unstop",
+          "url": "https://unstop.com/hackathons/cpp-competitive-programming-potpourri-shaastra-2027-iit-madras-1782995"
+        }
+      ],
+      "url": "https://unstop.com/hackathons/cpp-competitive-programming-potpourri-shaastra-2027-iit-madras-1782995",
+      "organizer": "Indian Institute of Technology (IIT), Madras",
+      "mode": "online",
+      "country": "India",
+      "registrationDeadline": "2027-01-04T18:29:00.000Z",
+      "startDate": null,
+      "endDate": "2027-01-04T18:29:00.000Z",
+      "fee": {
+        "type": "free"
+      },
+      "prize": "₹25,000",
+      "themes": [],
+      "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/uploadedManual-6aeb5bff0d314_shaastra_2027_dice_logo.png",
+      "lastSeenAt": "2026-11-19T05:29:33.176Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -273,7 +327,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/4470b13a397a413ca598d4413820eee5/assets/cover/323.png",
-      "lastSeenAt": "2026-11-18T23:47:33.104Z",
+      "lastSeenAt": "2026-11-19T05:29:32.011Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -308,7 +362,7 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-18T23:47:30.572Z",
+      "lastSeenAt": "2026-11-19T05:29:29.724Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -338,7 +392,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/6a9a810d11934e278fe5a13409791cde/assets/cover/534.png",
-      "lastSeenAt": "2026-11-18T23:47:33.104Z",
+      "lastSeenAt": "2026-11-19T05:29:32.011Z",
       "isNearby": true,
       "deadlineUnknown": false
     }
