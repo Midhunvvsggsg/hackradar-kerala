@@ -1,35 +1,35 @@
 {
-  "generatedAt": "2026-11-19T15:02:31.482Z",
+  "generatedAt": "2026-11-20T00:09:16.297Z",
   "timezone": "Asia/Kolkata",
-  "totalEvents": 10,
+  "totalEvents": 11,
   "sources": [
     {
       "id": "manual",
       "name": "Curated Community (manual.yaml)",
       "status": "ok",
       "count": 1,
-      "lastRun": "2026-11-19T15:02:31.482Z"
+      "lastRun": "2026-11-20T00:09:16.297Z"
     },
     {
       "id": "devfolio",
       "name": "Devfolio API",
       "status": "ok",
       "count": 9,
-      "lastRun": "2026-11-19T15:02:31.482Z"
+      "lastRun": "2026-11-20T00:09:16.297Z"
     },
     {
       "id": "devpost",
       "name": "Devpost API",
       "status": "ok",
       "count": 8,
-      "lastRun": "2026-11-19T15:02:31.482Z"
+      "lastRun": "2026-11-20T00:09:16.297Z"
     },
     {
       "id": "unstop",
       "name": "Unstop API",
       "status": "ok",
       "count": 15,
-      "lastRun": "2026-11-19T15:02:31.482Z"
+      "lastRun": "2026-11-20T00:09:16.297Z"
     }
   ],
   "events": [
@@ -59,7 +59,7 @@
         "Hardware"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/931ca9149c46417bb0526ce1eb44b920/assets/cover/831.png",
-      "lastSeenAt": "2026-11-19T15:02:34.113Z",
+      "lastSeenAt": "2026-11-20T00:09:18.810Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -89,7 +89,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/2689d878c21e4cf1a61a50f5104587f0/assets/cover/916.png",
-      "lastSeenAt": "2026-11-19T15:02:34.113Z",
+      "lastSeenAt": "2026-11-20T00:09:18.810Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -116,7 +116,7 @@
       "prize": "₹7,000",
       "themes": [],
       "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/uploadedManual-6afb3a26f2f04_sustainiq_logo-removebg-preview_1.png",
-      "lastSeenAt": "2026-11-19T15:02:35.030Z",
+      "lastSeenAt": "2026-11-20T00:09:20.692Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -146,7 +146,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/0c74c99ebe4d4bc8b1b9972451f350ca/assets/cover/21.jpeg",
-      "lastSeenAt": "2026-11-19T15:02:34.113Z",
+      "lastSeenAt": "2026-11-20T00:09:18.810Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -178,8 +178,35 @@
         "HealthTech"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/50e23a48e3964f43878279a3bf81339d/assets/cover/599.png",
-      "lastSeenAt": "2026-11-19T15:02:34.113Z",
+      "lastSeenAt": "2026-11-20T00:09:18.810Z",
       "isNearby": false,
+      "deadlineUnknown": false
+    },
+    {
+      "id": "unstop-1811526",
+      "title": "CircuitX",
+      "source": "unstop",
+      "sources": [
+        {
+          "name": "unstop",
+          "url": "https://unstop.com/hackathons/circuitx-bms-institute-of-technology-and-management-bmsitm-bangalore-1811526"
+        }
+      ],
+      "url": "https://unstop.com/hackathons/circuitx-bms-institute-of-technology-and-management-bmsitm-bangalore-1811526",
+      "organizer": "BMS Institute of Technology and Management (BMSITM), Bangalore",
+      "mode": "online",
+      "country": "India",
+      "registrationDeadline": "2026-12-20T03:30:00.000Z",
+      "startDate": null,
+      "endDate": "2026-12-20T03:30:00.000Z",
+      "fee": {
+        "type": "paid"
+      },
+      "prize": "₹40,000",
+      "themes": [],
+      "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/uploadedManual-6afc75c882d89_circuitx_725x724.png",
+      "lastSeenAt": "2026-11-20T00:09:20.692Z",
+      "isNearby": true,
       "deadlineUnknown": false
     },
     {
@@ -208,7 +235,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/cd4f5f7185d34287a43a12910978e19d/assets/cover/233.jpeg",
-      "lastSeenAt": "2026-11-19T15:02:34.113Z",
+      "lastSeenAt": "2026-11-20T00:09:18.810Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -235,7 +262,7 @@
       "prize": "₹25,000",
       "themes": [],
       "imageUrl": "https://d8it4huxumps7.cloudfront.net/uploads/images/150x150/uploadedManual-6aeb5bff0d314_shaastra_2027_dice_logo.png",
-      "lastSeenAt": "2026-11-19T15:02:35.030Z",
+      "lastSeenAt": "2026-11-20T00:09:20.692Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -265,7 +292,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/4470b13a397a413ca598d4413820eee5/assets/cover/323.png",
-      "lastSeenAt": "2026-11-19T15:02:34.113Z",
+      "lastSeenAt": "2026-11-20T00:09:18.810Z",
       "isNearby": true,
       "deadlineUnknown": false
     },
@@ -300,7 +327,7 @@
       ],
       "eligibility": "Pan-India undergraduate students",
       "teamSize": "3-5 members",
-      "lastSeenAt": "2026-11-19T15:02:31.492Z",
+      "lastSeenAt": "2026-11-20T00:09:16.312Z",
       "isNearby": false,
       "deadlineUnknown": false
     },
@@ -330,7 +357,7 @@
         "No Restrictions"
       ],
       "imageUrl": "https://assets.devfolio.co/hackathons/6a9a810d11934e278fe5a13409791cde/assets/cover/534.png",
-      "lastSeenAt": "2026-11-19T15:02:34.113Z",
+      "lastSeenAt": "2026-11-20T00:09:18.810Z",
       "isNearby": true,
       "deadlineUnknown": false
     }
